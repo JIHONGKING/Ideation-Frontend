@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { login } from "./actions";
 
 const loginSchema = z.object({
   username: z.string(),
@@ -31,6 +32,7 @@ export default function Page() {
   // TODO: Call login server action
   function onSubmit(values: z.infer<typeof loginSchema>) {
     console.log(values);
+    login(values);
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -59,7 +61,7 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

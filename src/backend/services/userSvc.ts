@@ -7,13 +7,14 @@ import {
   dbGetUser,
   dbGetUserFields,
 } from "../repository/userRepo";
+import { RegisterSchema } from "@/app/register/page";
 
-export async function createUser(user: User) {
+export async function createUser(user: RegisterSchema) {
   console.info("userSvc - createUser");
   console.info(user);
   try {
     // TODO: Validate user
-    await dbCreateUser(user);
+    await dbCreateUser(user as User);
   } catch (e) {
     console.warn(e);
   }

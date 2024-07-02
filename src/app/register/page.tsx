@@ -14,6 +14,7 @@ import {
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { register } from "./actions";
 
 const registerSchema = z
   .object({
@@ -22,8 +23,8 @@ const registerSchema = z
       .min(3, { message: "Username must be at least 3 characters." })
       .max(24, { message: "Username must be at most 24 characters." }),
     email: z.string().email({ message: "Must be a valid email address." }),
-    firstname: z.string(),
-    lastname: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters." }),
@@ -38,13 +39,16 @@ const registerSchema = z
       });
     }
   });
+
+export type RegisterSchema = z.infer<typeof registerSchema>;
+
 export default function Page() {
-  const form = useForm<z.infer<typeof registerSchema>>({
+  const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -52,8 +56,9 @@ export default function Page() {
   });
 
   // TODO: Call server action
-  function onSubmit(values: z.infer<typeof registerSchema>) {
+  function onSubmit(values: RegisterSchema) {
     console.log(values);
+    register(values);
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -124,7 +129,7 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -137,7 +142,7 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
