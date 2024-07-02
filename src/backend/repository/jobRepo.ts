@@ -1,4 +1,5 @@
 import { Job } from "@/backend/api/types";
+import { db } from "@/backend/db";
 
 export async function dbCreateJob(job: Job) {
   console.info("jobRepo - dbCreateJob");

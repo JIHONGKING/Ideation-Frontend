@@ -1,4 +1,5 @@
 import { User } from "../api/types";
+import { db } from "@/backend/db";
 
 export async function dbCreateUser(user: User) {
   console.info("userRepo - dbCreateUser");
