@@ -1,4 +1,4 @@
-import { User } from "../api/types";
+import { Credentials, User } from "../api/types";
 import { db } from "@/backend/db";
 import { user as user_table } from "../db/schema";
 import { eq } from "drizzle-orm";
@@ -16,9 +16,15 @@ export async function dbEditUser(user: User) {
   console.info("userRepo - dbEditUser");
   console.info(user);
 }
-export async function dbGetUserCredentials(username: string) {
+export async function dbGetUserCredentials(
+  username: string,
+): Promise<Credentials[]> {
   console.info("userRepo - dbGetUserCredentials");
   console.info(username);
+  return await db
+    .select({ username: user_table.username, password: user_table.password })
+    .from(user_table)
+    .where(eq(user_table.username, username));
 }
 export async function dbGetUser(username: string) {
   console.info("userRepo - dbGetUser");

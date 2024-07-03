@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "@/backend/services/userSvc";
 import { loginSchema } from "@/backend/api/schemas";
 import { LoginSchema } from "@/backend/api/types";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const form = useForm<LoginSchema>({
@@ -24,11 +25,17 @@ export default function Page() {
       password: "",
     },
   });
+  const router = useRouter();
 
+  // FIX: Sometimes does default form submit behavior
   async function onSubmit(values: LoginSchema) {
-    const response = await loginUser(values);
-
-    console.log(response);
+    try {
+      const token = await loginUser(values);
+      document.cookie = `token=${token}; path=/login`;
+      router.replace("/");
+    } catch (e) {
+      console.warn(e);
+    }
   }
   return (
     <main className="p-8 flex flex-col items-center">
