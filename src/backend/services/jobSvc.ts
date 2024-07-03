@@ -1,3 +1,5 @@
+"use server";
+
 import { Job } from "@/backend/api/types";
 import {
   dbCreateJob,

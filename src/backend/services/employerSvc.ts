@@ -1,3 +1,5 @@
+"use server";
+
 import { Employer, Credentials } from "@/backend/api/types";
 import {
   dbCreateEmployer,

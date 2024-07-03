@@ -11,36 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { register } from "./actions";
-
-const registerSchema = z
-  .object({
-    username: z
-      .string()
-      .min(3, { message: "Username must be at least 3 characters." })
-      .max(24, { message: "Username must be at most 24 characters." }),
-    email: z.string().email({ message: "Must be a valid email address." }),
-    firstName: z.string(),
-    lastName: z.string(),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters." }),
-    confirmPassword: z.string(),
-  })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword != password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Passwords do not match.",
-        path: ["confirmPassword"],
-      });
-    }
-  });
-
-export type RegisterSchema = z.infer<typeof registerSchema>;
+import { createUser } from "@/backend/services/userSvc";
+import { registerSchema } from "@/backend/api/schemas";
+import { RegisterSchema } from "@/backend/api/types";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const form = useForm<RegisterSchema>({
@@ -53,10 +29,17 @@ export default function Page() {
       password: "",
       confirmPassword: "",
     },
+    mode: "onTouched",
   });
+  const router = useRouter();
 
-  function onSubmit(values: RegisterSchema) {
-    register(values);
+  async function onSubmit(values: RegisterSchema) {
+    try {
+      await createUser(values);
+      router.replace("/login");
+    } catch (e) {
+      console.log(e);
+    }
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -82,7 +65,7 @@ export default function Page() {
           <div className="flex flex-row space-x-4">
             <FormField
               control={form.control}
-              name="firstname"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>First name</FormLabel>
@@ -95,7 +78,7 @@ export default function Page() {
             />
             <FormField
               control={form.control}
-              name="lastname"
+              name="lastName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Last name</FormLabel>

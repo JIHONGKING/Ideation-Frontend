@@ -1,3 +1,5 @@
+"use server";
+
 import { Credentials, User } from "@/backend/api/types";
 import {
   dbCreateUser,
@@ -7,16 +9,24 @@ import {
   dbGetUser,
   dbGetUserFields,
 } from "../repository/userRepo";
-import { RegisterSchema } from "@/app/register/page";
+import { RegisterSchema } from "@/backend/api/types";
+import { registerSchema } from "@/backend/api/schemas";
+import bcrypt from "bcrypt";
+
+const saltRounds = 10;
 
 export async function createUser(user: RegisterSchema) {
   console.info("userSvc - createUser");
   console.info(user);
   try {
-    // TODO: Validate user
-    await dbCreateUser(user as User);
+    await registerSchema.parseAsync(user);
+    const hashed_password = await bcrypt.hash(user.password, saltRounds);
+    const updatedUser = user as User;
+    updatedUser.password = hashed_password;
+    await dbCreateUser(updatedUser);
   } catch (e) {
     console.warn(e);
+    throw e;
   }
 }
 export async function deleteUser(username: string) {
@@ -44,6 +54,21 @@ export async function getUser(username: string) {
     return await dbGetUser(username);
   } catch (e) {
     console.warn(e);
+  }
+}
+
+export async function usernameExists(username: string) {
+  console.info("userSvc - usernameExists");
+  console.info(username);
+  try {
+    const user = await dbGetUser(username);
+    console.log(user);
+    if (user.length) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
   }
 }
 export async function getUserAttr(username: string, attr: string[]) {

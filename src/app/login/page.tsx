@@ -12,16 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { login } from "./actions";
-
-const loginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
-});
+import { loginUser } from "@/backend/services/userSvc";
+import { loginSchema } from "@/backend/api/schemas";
+import { LoginSchema } from "@/backend/api/types";
 
 export default function Page() {
-  const form = useForm<z.infer<typeof loginSchema>>({
+  const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       username: "",
@@ -29,8 +25,10 @@ export default function Page() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    login(values);
+  async function onSubmit(values: LoginSchema) {
+    const response = await loginUser(values);
+
+    console.log(response);
   }
   return (
     <main className="p-8 flex flex-col items-center">

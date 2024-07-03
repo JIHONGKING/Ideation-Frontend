@@ -27,7 +27,8 @@ services:
       - .env.dev
 
     volumes:
-      - .:/app
+      - ./src:/app/src
+      - ./public:/app/public
 
     restart: always
     ports:
