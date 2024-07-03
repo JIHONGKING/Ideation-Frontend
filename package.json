@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "devstack": "docker compose -f docker-compose.dev.yaml up",
+    "db": "docker compose -f docker-compose.dev.yaml up db",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
-    "push": "node -r esbuild-register src/lib/db/migrate.ts",
+    "push": "drizzle-kit push",
     "studio": "drizzle-kit studio --host 127.0.0.1"
   },
   "dependencies": {

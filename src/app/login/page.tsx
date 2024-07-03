@@ -29,9 +29,7 @@ export default function Page() {
     },
   });
 
-  // TODO: Call login server action
   function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
     login(values);
   }
   return (

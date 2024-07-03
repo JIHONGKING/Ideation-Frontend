@@ -55,9 +55,7 @@ export default function Page() {
     },
   });
 
-  // TODO: Call server action
   function onSubmit(values: RegisterSchema) {
-    console.log(values);
     register(values);
   }
   return (

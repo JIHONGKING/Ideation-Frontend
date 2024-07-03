@@ -6,10 +6,16 @@ Match applicants and employers using the power of Upstage AI.
 
 Run the website and the development database concurrently
 
-### The Nextjs website
+### `npm run devstack`
 
-`npm run dev`
+Run just the nextjs app
 
-### The Postgres database
+### `npm run dev`
 
-`docker compose -f docker-compose.yml up`
+Run just the database
+
+### `npm run db`
+
+Run drizzle studio (For db development)
+
+### `npm run studio`
