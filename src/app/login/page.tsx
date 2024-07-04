@@ -12,25 +12,35 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const loginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
-});
+import { loginUser } from "@/backend/services/userSvc";
+import { loginSchema } from "@/backend/api/schemas";
+import { LoginSchema } from "@/backend/api/types";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const form = useForm<z.infer<typeof loginSchema>>({
+  const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
+  const router = useRouter();
 
-  // TODO: Call login server action
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
+  // FIX: Sometimes does default form submit behavior
+  function onSubmit(values: LoginSchema) {
+    loginUser(values).then((token) => {
+      if (token) {
+        document.cookie = `token=${token}; path=/`;
+        router.replace("/dashboard");
+      } else {
+        form.setError("password", {
+          type: "manual",
+          message: "Incorrect credentials",
+        });
+        console.warn("Login not successful");
+      }
+    });
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -41,12 +51,12 @@ export default function Page() {
         >
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username or email address</FormLabel>
+                <FormLabel> Email address</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -59,7 +69,7 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -5,55 +5,37 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { createUser } from "@/backend/services/userSvc";
+import { registerUserSchema } from "@/backend/api/schemas";
+import { RegisterUserSchema } from "@/backend/api/types";
+import { useRouter } from "next/navigation";
 
-const registerSchema = z
-  .object({
-    username: z
-      .string()
-      .min(3, { message: "Username must be at least 3 characters." })
-      .max(24, { message: "Username must be at most 24 characters." }),
-    email: z.string().email({ message: "Must be a valid email address." }),
-    firstname: z.string(),
-    lastname: z.string(),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters." }),
-    confirmPassword: z.string(),
-  })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword != password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Passwords do not match.",
-        path: ["confirmPassword"],
-      });
-    }
-  });
 export default function Page() {
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<RegisterUserSchema>({
+    resolver: zodResolver(registerUserSchema),
     defaultValues: {
-      username: "",
-      firstname: "",
-      lastname: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
+    mode: "onTouched",
   });
+  const router = useRouter();
 
-  // TODO: Call server action
-  function onSubmit(values: z.infer<typeof registerSchema>) {
-    console.log(values);
+  function onSubmit(values: RegisterUserSchema) {
+    createUser(values).then((success) =>
+      success
+        ? router.replace("/login")
+        : console.warn("Registering was unsuccessful."),
+    );
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -64,46 +46,17 @@ export default function Page() {
         >
           <FormField
             control={form.control}
-            name="username"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Full name</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                <FormDescription>This is a unique id.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex flex-row space-x-4">
-            <FormField
-              control={form.control}
-              name="firstname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
           <FormField
             control={form.control}
             name="email"
@@ -124,7 +77,7 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -137,7 +90,7 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
