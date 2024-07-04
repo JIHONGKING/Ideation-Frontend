@@ -9,7 +9,20 @@ export default async function Dashboard() {
   return (
     <main className="p-8">
       <h1 className="text-xl">Dashboard</h1>
-      <p>{user?.toString()}</p>
+      <div className="flex flex-col">
+        <div className="flex flex-row space-x-8">
+          <p>Name</p>
+          <p>{user.name}</p>
+        </div>
+        <div className="flex flex-row space-x-8">
+          <p>Email</p>
+          <p>{user.email}</p>
+        </div>
+        <div className="flex flex-row space-x-8">
+          <p>Password (Hashed)</p>
+          <p>{user.password}</p>
+        </div>
+      </div>
     </main>
   );
 }

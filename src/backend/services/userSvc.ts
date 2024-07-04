@@ -124,7 +124,7 @@ export async function loginUser(credentials: Credentials) {
     return null;
   }
 }
-export async function getAuthUser() {
+export async function getAuthUser(): Promise<User | null> {
   console.info("userSvc - getAuthUser");
   const nextCookies = cookies();
   const token = nextCookies.get("token")?.value;
@@ -139,7 +139,7 @@ export async function getAuthUser() {
   try {
     const decoded = jwt.verify(token, jwt_secret);
     console.log("decoded:", decoded);
-    return await dbGetUserById(decoded.userId);
+    return (await dbGetUserById(decoded.userId))[0];
   } catch (e) {
     console.info(e);
     return null;

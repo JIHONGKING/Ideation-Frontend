@@ -32,7 +32,7 @@ export default function Page() {
     loginUser(values).then((token) => {
       if (token) {
         document.cookie = `token=${token}; path=/`;
-        router.replace("/");
+        router.replace("/dashboard");
       } else {
         form.setError("password", {
           type: "manual",
