@@ -17,22 +17,24 @@ export async function dbEditUser(user: User) {
   console.info(user);
 }
 export async function dbGetUserCredentials(
-  username: string,
+  email: string,
 ): Promise<Credentials[]> {
   console.info("userRepo - dbGetUserCredentials");
-  console.info(username);
+  console.info(email);
   return await db
-    .select({ username: user_table.username, password: user_table.password })
+    .select({ email: user_table.email, password: user_table.password })
     .from(user_table)
-    .where(eq(user_table.username, username));
+    .where(eq(user_table.email, email));
 }
-export async function dbGetUser(username: string) {
-  console.info("userRepo - dbGetUser");
-  console.info(username);
-  return await db
-    .select()
-    .from(user_table)
-    .where(eq(user_table.username, username));
+export async function dbGetUserByEmail(email: string) {
+  console.info("userRepo - dbGetUserByEmail");
+  console.info(email);
+  return await db.select().from(user_table).where(eq(user_table.email, email));
+}
+export async function dbGetUserById(id: number) {
+  console.info("userRepo - dbGetUserById");
+  console.info(id);
+  return await db.select().from(user_table).where(eq(user_table.id, id));
 }
 export async function dbGetUserFields(username: string, attr: string[]) {
   console.info("userRepo - dbGetUserFields");

@@ -1,15 +1,11 @@
 import { z } from "zod";
-import { usernameExists } from "../services/userSvc";
+import { userEmailExists } from "@/backend/services/userSvc";
+import { employerEmailExists } from "@/backend/services/employerSvc";
 
-export const registerSchema = z
+export const registerUserSchema = z
   .object({
-    username: z
-      .string()
-      .min(3, { message: "Username must be at least 3 characters." })
-      .max(24, { message: "Username must be at most 24 characters." }),
     email: z.string().email({ message: "Must be a valid email address." }),
-    firstName: z.string(),
-    lastName: z.string(),
+    name: z.string(),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters." }),
@@ -24,18 +20,47 @@ export const registerSchema = z
       });
     }
   })
-  .superRefine(async ({ username }, ctx) => {
-    const exists = await usernameExists(username);
+  .superRefine(async ({ email }, ctx) => {
+    const exists = await userEmailExists(email);
     if (exists) {
       ctx.addIssue({
         code: "custom",
-        message: "The username is already taken.",
-        path: ["username"],
+        message: "This email is already in use.",
+        path: ["email"],
+      });
+    }
+  });
+
+export const registerEmployerSchema = z
+  .object({
+    email: z.string().email({ message: "Must be a valid email address." }),
+    name: z.string(),
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters." }),
+    confirmPassword: z.string(),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword != password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Passwords do not match.",
+        path: ["confirmPassword"],
+      });
+    }
+  })
+  .superRefine(async ({ email }, ctx) => {
+    const exists = await employerEmailExists(email);
+    if (exists) {
+      ctx.addIssue({
+        code: "custom",
+        message: "This email is already in use.",
+        path: ["email"],
       });
     }
   });
 
 export const loginSchema = z.object({
-  username: z.string(),
+  email: z.string(),
   password: z.string(),
 });

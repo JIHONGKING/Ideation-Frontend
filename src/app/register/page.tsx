@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,17 +13,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createUser } from "@/backend/services/userSvc";
-import { registerSchema } from "@/backend/api/schemas";
-import { RegisterSchema } from "@/backend/api/types";
+import { registerUserSchema } from "@/backend/api/schemas";
+import { RegisterUserSchema } from "@/backend/api/types";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const form = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<RegisterUserSchema>({
+    resolver: zodResolver(registerUserSchema),
     defaultValues: {
-      username: "",
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -33,13 +30,12 @@ export default function Page() {
   });
   const router = useRouter();
 
-  async function onSubmit(values: RegisterSchema) {
-    try {
-      await createUser(values);
-      router.replace("/login");
-    } catch (e) {
-      console.log(e);
-    }
+  function onSubmit(values: RegisterUserSchema) {
+    createUser(values).then((success) =>
+      success
+        ? router.replace("/login")
+        : console.warn("Registering was unsuccessful."),
+    );
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -50,46 +46,17 @@ export default function Page() {
         >
           <FormField
             control={form.control}
-            name="username"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Full name</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                <FormDescription>This is a unique id.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex flex-row space-x-4">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
           <FormField
             control={form.control}
             name="email"

@@ -1,12 +1,18 @@
 import { z } from "zod";
-import { loginSchema, registerSchema } from "./schemas";
+import {
+  loginSchema,
+  registerUserSchema,
+  registerEmployerSchema,
+} from "./schemas";
 
-export type Employer = {};
+export type Employer = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export type User = {
-  username: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
 };
@@ -14,9 +20,10 @@ export type User = {
 export type Job = {};
 
 export type Credentials = {
-  username: string;
+  email: string;
   password: string;
 };
 
 export type LoginSchema = z.infer<typeof loginSchema>;
-export type RegisterSchema = z.infer<typeof registerSchema>;
+export type RegisterUserSchema = z.infer<typeof registerUserSchema>;
+export type RegisterEmployerSchema = z.infer<typeof registerEmployerSchema>;

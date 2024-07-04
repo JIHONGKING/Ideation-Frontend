@@ -21,21 +21,26 @@ export default function Page() {
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
   const router = useRouter();
 
   // FIX: Sometimes does default form submit behavior
-  async function onSubmit(values: LoginSchema) {
-    try {
-      const token = await loginUser(values);
-      document.cookie = `token=${token}; path=/login`;
-      router.replace("/");
-    } catch (e) {
-      console.warn(e);
-    }
+  function onSubmit(values: LoginSchema) {
+    loginUser(values).then((token) => {
+      if (token) {
+        document.cookie = `token=${token}; path=/`;
+        router.replace("/");
+      } else {
+        form.setError("password", {
+          type: "manual",
+          message: "Incorrect credentials",
+        });
+        console.warn("Login not successful");
+      }
+    });
   }
   return (
     <main className="p-8 flex flex-col items-center">
@@ -46,12 +51,12 @@ export default function Page() {
         >
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username or email address</FormLabel>
+                <FormLabel> Email address</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

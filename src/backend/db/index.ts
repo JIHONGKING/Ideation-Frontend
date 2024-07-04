@@ -4,18 +4,19 @@ import * as dotenv from "dotenv";
 
 dotenv.config({ path: ".env.dev" });
 
-if (!process.env.DB_NAME) throw new Error("DB_NAME is not set");
-if (!process.env.DB_USER) throw new Error("DB_USER is not set");
-if (!process.env.DB_PASSWORD) throw new Error("DB_PASSWORD is not set");
-if (!process.env.DB_PORT) throw new Error("DB_PORT is not set");
-if (!process.env.DB_HOST) throw new Error("DB_HOST is not set");
+if (!process.env.POSTGRES_DB) throw new Error("POSTGRES_DB is not set");
+if (!process.env.POSTGRES_USER) throw new Error("POSTGRES_USER is not set");
+if (!process.env.POSTGRES_PASSWORD)
+  throw new Error("POSTGRES_PASSWORD is not set");
+if (!process.env.POSTGRES_PORT) throw new Error("POSTGRES_PORT is not set");
+if (!process.env.POSTGRES_HOST) throw new Error("POSTGRES_HOST is not set");
 
 const client = new Client({
-  host: process.env.DB_HOST,
-  port: 5432,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.POSTGRES_HOST,
+  port: parseInt(process.env.POSTGRES_PORT),
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
 });
 
 client.connect();

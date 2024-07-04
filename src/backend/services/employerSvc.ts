@@ -8,6 +8,7 @@ import {
   dbEditEmployer,
   dbGetEmployer,
   dbGetEmployerFields,
+  dbGetEmployerByEmail,
 } from "../repository/employerRepo";
 
 export async function createEmployer(employer: Employer) {
@@ -38,6 +39,20 @@ export async function editEmployer(employer: Employer) {
     console.log(e);
   }
 }
+export async function employerEmailExists(email: string) {
+  console.info("employerSvc - employerEmailExists");
+  console.info(email);
+  try {
+    const employer = await dbGetEmployerByEmail(email);
+    console.log(employer);
+    if (employer.length) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
 export async function getEmployer(username: string) {
   console.info("employerSvc - getEmployer");
   console.info(username);
@@ -60,7 +75,7 @@ export async function loginEmployer(credentials: Credentials) {
   console.info("employerSvc - loginEmployer");
   console.info(credentials);
   try {
-    const creds = await dbGetEmployerCredentials(credentials.username);
+    const creds = await dbGetEmployerCredentials(credentials.email);
     // TODO: Login logic here
   } catch (e) {
     console.log(e);

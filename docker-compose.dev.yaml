@@ -9,15 +9,9 @@ services:
       - 5432:5432
 
     environment:
-      - POSTGRES_DB=DEMODB
+      - POSTGRES_DB=devdb
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=localhost
-
-  adminer:
-    image: adminer:4.8.1
-    restart: always
-    ports:
-      - 8080:8080
+      - POSTGRES_PASSWORD=development
 
   next-app:
     build:
