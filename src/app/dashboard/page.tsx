@@ -8,7 +8,6 @@ export default async function Dashboard() {
   }
   return (
     <main className="p-8">
-      <h1 className="text-xl">Dashboard</h1>
       <div className="flex flex-col">
         <div className="flex flex-row space-x-8">
           <p>Name</p>

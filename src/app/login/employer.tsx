@@ -83,7 +83,7 @@ export default function Page() {
                       <Input
                         type="email"
                         placeholder="Email Address"
-                        className="bg-primary-background-light rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60"
+                        className="w-[465px] h-[50px]"
                         {...field}
                       />
                     </FormControl>
@@ -100,7 +100,7 @@ export default function Page() {
                       <Input
                         type="password"
                         placeholder="Password"
-                        className="bg-[#ECF1FA] rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60 outline-none"
+                        className="w-[465px] h-[50px]"
                         {...field}
                       />
                     </FormControl>

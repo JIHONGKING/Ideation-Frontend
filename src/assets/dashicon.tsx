@@ -1,0 +1,45 @@
+export default function DashIcon({ className }: { className: string }) {
+  return (
+    <svg
+      width="18"
+      height="19"
+      viewBox="0 0 18 19"
+      fill="none"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="0.75"
+        y="0.795532"
+        width="6.5"
+        height="8.5"
+        rx="1.25"
+        stroke-width="1.5"
+      />
+      <rect
+        x="0.75"
+        y="12.7955"
+        width="6.5"
+        height="4.5"
+        rx="1.25"
+        stroke-width="1.5"
+      />
+      <rect
+        x="10.75"
+        y="8.79553"
+        width="6.5"
+        height="8.5"
+        rx="1.25"
+        stroke-width="1.5"
+      />
+      <rect
+        x="10.75"
+        y="0.795532"
+        width="6.5"
+        height="4.5"
+        rx="1.25"
+        stroke-width="1.5"
+      />
+    </svg>
+  );
+}

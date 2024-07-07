@@ -117,7 +117,7 @@ export async function loginUser(credentials: Credentials) {
       throw new Error("No JWT_SECRET defined");
     }
     return jwt.sign({ userId: user.id }, jwt_secret, {
-      expiresIn: "1m",
+      expiresIn: "60m",
     });
   } catch (e) {
     console.warn(e);
