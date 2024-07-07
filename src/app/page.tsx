@@ -25,7 +25,7 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-        <div className="w-[626px] h-[356px] bg-primary rounded-lg bg-[#ECF1FA] shadow-md"></div>
+        <div className="w-[626px] h-[356px] rounded-lg bg-[#B9CEF6] shadow-md"></div>
       </main>
       <section className="bg-primary-background p-12 min-h-screen">
         <div className="flex flex-col items-center space-y-4 w-full">

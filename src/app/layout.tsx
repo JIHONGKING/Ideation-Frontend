@@ -5,6 +5,7 @@ import "@fontsource/rubik/500.css";
 import "@fontsource/rubik/600.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export const metadata: Metadata = {
   title: "CareerBridgeAI website",
@@ -25,7 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <GoogleOAuthProvider clientId="cool">{children}</GoogleOAuthProvider>
         </ThemeProvider>
       </body>
     </html>
