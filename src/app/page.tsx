@@ -8,7 +8,7 @@ export default function Home() {
       <Navbar />
       <main className="w-full p-8 mt-20 bg-gradient-to-t from-[#E1EDFF] to-primary-background h-[512px] px-40 flex flex-row justify-between">
         <div className="flex flex-col justify-around h-full">
-          <div>
+          <div className="space-y-[10px]">
             <h1 className="text-5xl text-primary-foreground font-semibold">
               Where Talent Meets Opportunity
             </h1>
@@ -17,8 +17,8 @@ export default function Home() {
               and bidding system.
             </p>
           </div>
-          <Link href="/register">
-            <Button className="w-[222px] h-[55px]">
+          <Link href="/register" className="w-[222px]">
+            <Button className="w-full h-[55px]">
               <p className="text-primary-background text-2xl font-light">
                 Register
               </p>

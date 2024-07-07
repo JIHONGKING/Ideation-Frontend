@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { createEmployer } from "@/backend/services/userSvc";
+import { createEmployer } from "@/backend/services/employerSvc";
 import { registerEmployerSchema } from "@/backend/api/schemas";
 import { RegisterEmployerSchema } from "@/backend/api/types";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,7 @@ export default function Page() {
   }
   return (
     <main className="flex flex-row min-h-screen">
-      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-[#7BA4F1] to-primary-background flex flex-col items-center text-center pt-44 pb-20">
+      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-[#7BA4F1] to-primary-background flex flex-col items-center text-center pt-44 pb-20 shadow-md">
         <h1 className="text-4xl font-bold w-[512px]">
           Discover Top Talent through
           <p className="text-[#3461B8]">Competitive Bidding!</p>

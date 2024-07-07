@@ -46,7 +46,7 @@ export default function Page() {
   }
   return (
     <main className="flex flex-row min-h-screen">
-      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-[#7BA4F1] to-primary-background flex flex-col items-center text-center pt-44 pb-20">
+      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-[#7BA4F1] to-primary-background flex flex-col items-center text-center pt-44 pb-20 shadow-md">
         <h1 className="text-4xl font-bold w-[510px]">
           Discover Top Talent through
           <p className="text-[#3461B8]">Competitive Bidding</p>

@@ -10,20 +10,24 @@ export default function Navbar() {
       </Link>
       <nav className="flex flex-row items-center h-20 ml-auto space-x-12">
         <Link href="/">
-          <p className="text-lg text-primary">Home</p>
+          <p className="text-base font-normal text-primary">Home</p>
         </Link>
         <Link href="/services">
-          <p className="text-lg  text-primary-foreground">Services</p>
+          <p className="text-base  font-normal text-primary-foreground">
+            Services
+          </p>
         </Link>
         <Link href="/contact">
-          <p className="text-lg text-primary-foreground">Contact</p>
+          <p className="text-base font-normal text-primary-foreground">
+            Contact
+          </p>
         </Link>
         <Link href="/login">
-          <p className="text-lg text-primary-foreground">Login</p>
+          <p className="text-base font-normal text-primary-foreground">Login</p>
         </Link>
         <Link href="/register">
           <Button variant="outline" className="border-primary border-2">
-            <p className="text-lg text-primary">Join</p>
+            <p className="text-base font-normal text-primary">Join</p>
           </Button>
         </Link>
       </nav>

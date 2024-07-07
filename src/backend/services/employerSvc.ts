@@ -75,7 +75,6 @@ export async function loginEmployer(credentials: Credentials) {
   console.info("employerSvc - loginEmployer");
   console.info(credentials);
   try {
-    const creds = await dbGetEmployerCredentials(credentials.email);
     // TODO: Login logic here
   } catch (e) {
     console.log(e);

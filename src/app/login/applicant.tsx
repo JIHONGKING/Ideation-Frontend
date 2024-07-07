@@ -46,7 +46,7 @@ export default function Page() {
   }
   return (
     <main className="flex flex-row min-h-screen">
-      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-primary to-primary-background flex flex-col items-center text-center pt-44 pb-20">
+      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-primary to-primary-background flex flex-col items-center text-center pt-44 pb-20 shadow-md">
         <h1 className="text-4xl font-bold w-[456px]">
           Join CareerBridge AI and{" "}
           <p className="text-[#3461B8]">Find Your Dream Job!</p>
@@ -66,7 +66,7 @@ export default function Page() {
           </TabsTrigger>
         </TabsList>
       </section>
-      <section className="flex flex-col items-center min-w-[50%] justify-center space-y-[56px]">
+      <section className="flex flex-col items-center w-1/2 justify-center space-y-[56px]">
         <h1 className="text-2xl font-normal">Sign in as job seeker</h1>
         <Form {...form}>
           <form
