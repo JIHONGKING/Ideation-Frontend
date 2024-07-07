@@ -17,8 +17,6 @@ import { LoginSchema } from "@/backend/api/types";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { GoogleLogin } from "@react-oauth/google";
-import logo from "@/assets/logo.svg";
-import Image from "next/image";
 import { TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Page() {
@@ -48,13 +46,6 @@ export default function Page() {
   }
   return (
     <main className="flex flex-row min-h-screen">
-      <Image
-        src={logo}
-        width={190}
-        height={40}
-        alt="CareerBridge AI logo"
-        className="absolute top-[18px] left-[160px]"
-      />
       <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-primary to-primary-background flex flex-col items-center text-center pt-44 pb-20">
         <h1 className="text-4xl font-bold w-[456px]">
           Join CareerBridge AI and{" "}
@@ -76,7 +67,7 @@ export default function Page() {
         </TabsList>
       </section>
       <section className="flex flex-col items-center min-w-[50%] justify-center space-y-[56px]">
-        <h1 className="text-2xl font-normal">Join as job seeker</h1>
+        <h1 className="text-2xl font-normal">Sign in as job seeker</h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -121,7 +112,7 @@ export default function Page() {
             <div className="w-[345px] flex flex-col items-center space-y-[14px]">
               <Button type="submit" className="w-full h-[50px] rounded-sm">
                 <p className="text-base font-normal text-primary-background">
-                  Sign Up
+                  Sign In
                 </p>
               </Button>
               <p className="text-sm text-primary-foreground text-opacity-60 font-light">

@@ -1,8 +1,8 @@
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import SeekerLogin from "./applicant";
-import EmployerLogin from "./employer";
-import Image from "next/image";
+import SeekerRegister from "./applicant";
+import EmployerRegister from "./employer";
 import logo from "@/assets/logo.svg";
+import Image from "next/image";
 
 export default function Login() {
   return (
@@ -15,10 +15,10 @@ export default function Login() {
         className="absolute top-[18px] left-[160px]"
       />
       <TabsContent value="jobseeker" className="m-0">
-        <SeekerLogin />
+        <SeekerRegister />
       </TabsContent>
       <TabsContent value="employer" className="m-0">
-        <EmployerLogin />
+        <EmployerRegister />
       </TabsContent>
     </Tabs>
   );
