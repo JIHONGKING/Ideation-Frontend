@@ -46,21 +46,21 @@ export default function Page() {
   }
   return (
     <main className="flex flex-row min-h-screen">
-      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-[#7BA4F1] to-primary-background flex flex-col items-center text-center pt-44 pb-20 shadow-md">
+      <section className="w-[808px] max-w-[50%] bg-gradient-to-t from-primary-lighter to-primary-background flex flex-col items-center text-center pt-44 pb-20 shadow-md">
         <h1 className="text-4xl font-bold w-[510px]">
           Discover Top Talent through
-          <p className="text-[#3461B8]">Competitive Bidding</p>
+          <p className="text-primary-darker">Competitive Bidding</p>
         </h1>
         <TabsList className="mt-auto w-[276px] h-[43px] rounded-sm space-x-1">
           <TabsTrigger
             value="employer"
-            className="data-[state=active]:bg-[#1F3A6F] data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
+            className="data-[state=active]:bg-primary-darkest data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
           >
             Employer
           </TabsTrigger>
           <TabsTrigger
             value="jobseeker"
-            className="data-[state=active]:bg-[#1F3A6F] data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
+            className="data-[state=active]:bg-primary-darkest data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
           >
             <p className="">Job seeker</p>
           </TabsTrigger>
@@ -83,7 +83,7 @@ export default function Page() {
                       <Input
                         type="email"
                         placeholder="Email Address"
-                        className="bg-[#ECF1FA] rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60"
+                        className="bg-primary-background-light rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60"
                         {...field}
                       />
                     </FormControl>

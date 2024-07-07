@@ -13,11 +13,19 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
+    --primary-lightest: #b9cef6;
+    --primary-lighter: #7ba4f1;
     --primary: #447dea;
+    --primary-darker: #3461b8;
+    --primary-darkest: #1f3a6f;
     --primary-background: #ffffff;
+    --primary-background-light: #ecf1fa;
     --primary-foreground: #343a40;
 
+    --secondary-lightest: #bdf0da;
+    --secondary-lighter: #72e4b4;
     --secondary: #36e099;
+    --secondary-darker: #2cbc81;
     --secondary-background: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
 
@@ -80,4 +88,3 @@
     @apply bg-background text-foreground;
   }
 }
-

@@ -25,14 +25,16 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-        <div className="w-[626px] h-[356px] rounded-lg bg-[#B9CEF6] shadow-md"></div>
+        <div className="w-[626px] h-[356px] rounded-lg bg-primary-background-light shadow-md"></div>
       </main>
       <section className="bg-primary-background p-12 min-h-screen">
         <div className="flex flex-col items-center space-y-4 w-full">
           <h1 className="font-semibold text-4xl text-primary-foreground max-w-lg text-center">
             Manage your Career or Hiring Needs in a Single System
           </h1>
-          <p className="text-[#717171]">Who is CareerBridge AI suitable for?</p>
+          <p className="text-[#717171] font-normal">
+            Who is CareerBridge AI suitable for?
+          </p>
         </div>
       </section>
     </div>

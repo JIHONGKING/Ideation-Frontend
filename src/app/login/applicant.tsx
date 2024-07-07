@@ -54,13 +54,13 @@ export default function Page() {
         <TabsList className="mt-auto w-[276px] h-[43px] rounded-sm space-x-1">
           <TabsTrigger
             value="employer"
-            className="data-[state=active]:bg-[#1F3A6F] data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
+            className="data-[state=active]:bg-primary-darkest data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
           >
             Employer
           </TabsTrigger>
           <TabsTrigger
             value="jobseeker"
-            className="data-[state=active]:bg-[#1F3A6F] data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
+            className="data-[state=active]:bg-primary-darkest data-[state=active]:text-primary-background text-lg font-light data-[state=active]:font-normal w-1/2 py-0 h-full"
           >
             <p className="">Job seeker</p>
           </TabsTrigger>
@@ -83,7 +83,7 @@ export default function Page() {
                       <Input
                         type="email"
                         placeholder="Email Address"
-                        className="bg-[#ECF1FA] rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60"
+                        className="bg-primary-background-light rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60"
                         {...field}
                       />
                     </FormControl>
@@ -100,7 +100,7 @@ export default function Page() {
                       <Input
                         type="password"
                         placeholder="Password"
-                        className="bg-[#ECF1FA] rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60 outline-none"
+                        className="bg-primary-background-light rounded-sm w-[465px] h-[50px] border-0 font-light text-base px-7 text-opacity-60 outline-none"
                         {...field}
                       />
                     </FormControl>

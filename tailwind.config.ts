@@ -26,11 +26,21 @@ const config = {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "var(--primary)",
-          background: "var(--primary-background)",
+          lightest: "var(--primary-lightest)",
+          lighter: "var(--primary-lighter)",
+          darker: "var(--primary-darker)",
+          darkest: "var(--primary-darkest)",
+          background: {
+            DEFAULT: "var(--primary-background)",
+            light: "var(--primary-background-light)",
+          },
           foreground: "var(--primary-foreground)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
+          lightest: "var(--secondary-lightest)",
+          lighter: "var(--secondary-lighter)",
+          darker: "var(--secondary-darker)",
           background: "hsl(var(--secondary-background))",
           foreground: "hsl(var(--secondary-foreground))",
         },
@@ -89,4 +99,3 @@ const config = {
 } satisfies Config;
 
 export default config;
-
