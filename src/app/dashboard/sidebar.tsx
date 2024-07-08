@@ -15,7 +15,7 @@ export default function Sidebar() {
   const [loc, setLoc] = useState<string>("dashboard");
   const [collapsed, setCollapsed] = useState<boolean>(false);
   return (
-    <nav className="p-[30px] pt-[90px] w-[300px] min-h-screen bg-primary-background flex flex-col justify-between">
+    <nav className="fixed p-[30px] pt-[90px] w-[300px] min-h-screen bg-primary-background flex flex-col justify-between">
       <div className="w-full space-y-8 flex flex-col items-center">
         <Button
           variant={loc == "dashboard" ? "dashnav" : "dashnavnop"}

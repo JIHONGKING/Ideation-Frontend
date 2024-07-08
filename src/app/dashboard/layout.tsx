@@ -10,7 +10,10 @@ export default function Layout({
       <Navbar />
       <div className="flex flex-row w-full">
         <Sidebar />
-        <div className="pt-[60px]"> {children}</div>
+        <div className="pt-[60px] pl-[300px] min-h-screen w-full">
+          {" "}
+          {children}
+        </div>
       </div>
     </main>
   );
