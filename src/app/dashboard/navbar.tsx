@@ -13,6 +13,7 @@ import searchicon from "@/assets/searchicon.svg";
 import bellicon from "@/assets/bellicon.svg";
 import messageicon from "@/assets/messageicon.svg";
 import { ChevronDown } from "lucide-react";
+import { logoutUser } from "@/backend/services/userSvc";
 export default function Navbar() {
   return (
     <div className="fixed top-0 h-[60px] w-full z-10 flex flex-row items-center pl-[52px] pr-[183px] bg-primary-background border-b border-[#D6D6D6] border-opacity-60">
@@ -54,9 +55,15 @@ export default function Navbar() {
             <ChevronDown />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Button variant="ghost" className="w-full text-primary-foreground">
-              Logout
-            </Button>
+            <form action={logoutUser}>
+              <Button
+                type="submit"
+                variant="ghost"
+                className="w-full text-primary-foreground"
+              >
+                Logout
+              </Button>
+            </form>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

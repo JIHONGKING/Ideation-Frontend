@@ -116,12 +116,15 @@ export async function loginUser(credentials: Credentials) {
     if (!jwt_secret) {
       throw new Error("No JWT_SECRET defined");
     }
-    return jwt.sign({ userId: user.id }, jwt_secret, {
+    const token = jwt.sign({ userId: user.id }, jwt_secret, {
       expiresIn: "60m",
     });
+    const nextCookies = cookies();
+    nextCookies.set("token", token, { httpOnly: true });
+    return true;
   } catch (e) {
     console.warn(e);
-    return null;
+    return false;
   }
 }
 export async function getAuthUser(): Promise<User | null> {
@@ -145,16 +148,17 @@ export async function getAuthUser(): Promise<User | null> {
     return null;
   }
 }
-export async function logoutUser(sessionid: string) {
+export async function logoutUser() {
   console.info("userSvc - logoutUser");
-  console.info(sessionid);
   try {
-    // TODO: Logout logic here
+    const nextCookies = cookies();
+    nextCookies.delete("token");
   } catch (e) {
     console.warn(e);
   }
 }
 
+// INFO: Currently not possible with Token based auth
 export async function logoutEverywhereUser(username: string) {
   console.info("userSvc - logoutEverywhereUser");
   console.info(username);

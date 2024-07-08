@@ -29,11 +29,9 @@ export default function Page() {
   });
   const router = useRouter();
 
-  // FIX: Sometimes does default form submit behavior
   function onSubmit(values: LoginSchema) {
-    loginUser(values).then((token) => {
-      if (token) {
-        document.cookie = `token=${token}; path=/`;
+    loginUser(values).then((success) => {
+      if (success) {
         router.replace("/dashboard");
       } else {
         form.setError("password", {
