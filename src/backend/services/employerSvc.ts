@@ -1,26 +1,41 @@
 "use server";
 
-import { Employer, Credentials } from "@/backend/api/types";
+import {
+  Employer,
+  Credentials,
+  RegisterEmployerSchema,
+} from "@/backend/api/types";
+import { registerEmployerSchema } from "@/backend/api/schemas";
 import {
   dbCreateEmployer,
   dbDeleteEmployer,
   dbGetEmployerCredentials,
   dbEditEmployer,
-  dbGetEmployer,
   dbGetEmployerFields,
   dbGetEmployerByEmail,
 } from "../repository/employerRepo";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-export async function createEmployer(employer: Employer) {
+const saltRounds = 10;
+
+export async function createEmployer(employer: RegisterEmployerSchema) {
   console.info("employerSvc - createEmployer");
   console.info(employer);
   try {
-    // TODO: Check employer fields here
-    await dbCreateEmployer(employer);
+    await registerEmployerSchema.parseAsync(employer);
+    const hashed_password = await bcrypt.hash(employer.password, saltRounds);
+    const updatedEmployer = employer as Employer;
+    updatedEmployer.password = hashed_password;
+    await dbCreateEmployer(updatedEmployer);
+    return true;
   } catch (e) {
-    console.log(e);
+    console.warn(e);
+    return false;
   }
 }
+
+// TODO: Test
 export async function deleteEmployer(username: string) {
   console.info("employerSvc - deleteEmployer");
   console.info(username);
@@ -30,6 +45,7 @@ export async function deleteEmployer(username: string) {
     console.log(e);
   }
 }
+// TODO: Test
 export async function editEmployer(employer: Employer) {
   console.info("employerSvc - editEmployer");
   console.info(employer);
@@ -53,15 +69,17 @@ export async function employerEmailExists(email: string) {
     return false;
   }
 }
-export async function getEmployer(username: string) {
+export async function getEmployer(email: string) {
   console.info("employerSvc - getEmployer");
-  console.info(username);
+  console.info();
   try {
-    return await dbGetEmployer(username);
+    return await dbGetEmployerByEmail(email);
   } catch (e) {
     console.log(e);
   }
 }
+
+// TODO: TEST
 export async function getEmployerAttr(username: string, attr: string[]) {
   console.info("employerSvc - getEmployerAttr");
   console.info(username, attr);
@@ -71,13 +89,41 @@ export async function getEmployerAttr(username: string, attr: string[]) {
     console.log(e);
   }
 }
+async function authEmployer(email: string, password: string) {
+  const results = await dbGetEmployerCredentials(email);
+  if (results.length != 1) {
+    throw new Error("User does not exist");
+  }
+  const hashed_password = results[0].password;
+  const success = await bcrypt.compare(password, hashed_password);
+  if (success) {
+    return (await dbGetEmployerByEmail(email))[0];
+  } else {
+    throw new Error("Invalid credentials");
+  }
+}
+
 export async function loginEmployer(credentials: Credentials) {
   console.info("employerSvc - loginEmployer");
   console.info(credentials);
   try {
-    // TODO: Login logic here
+    const employer = await authEmployer(
+      credentials.email,
+      credentials.password,
+    );
+    if (!employer) {
+      throw new Error("Login failed");
+    }
+    const jwt_secret = process.env.JWT_SECRET;
+    if (!jwt_secret) {
+      throw new Error("No JWT_SECRET defined");
+    }
+    return jwt.sign({ employerId: employer.id }, jwt_secret, {
+      expiresIn: "60m",
+    });
   } catch (e) {
-    console.log(e);
+    console.warn(e);
+    return null;
   }
 }
 export async function logoutUser(sessionid: string) {
