@@ -6,14 +6,14 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-[#F5F6F8]">
+    <main className="bg-[#F5F6F8] h-screen w-full">
       <Navbar />
       <div className="flex flex-row w-full">
         <Sidebar />
-        <div className="pt-[60px] pl-[300px] min-h-screen w-full">
+        <main className="fixed left-[300px] top-[60px] w-[calc(100%-300px)] h-[calc(100vh-60px)] px-6 py-12">
           {" "}
           {children}
-        </div>
+        </main>
       </div>
     </main>
   );
