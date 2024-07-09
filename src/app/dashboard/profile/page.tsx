@@ -5,6 +5,7 @@ import UWIcon from "./uwicon";
 import AmazonIcon from "./amazonicon";
 import EpicIcon from "./epicicon";
 import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const experiences = [
   {
@@ -23,10 +24,23 @@ const experiences = [
   },
 ];
 
+function ResumeUpload() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="bg-primary-darkest text-primary-background rounded-sm font-normal px-5 py-2 h-[34px]">
+          Upload Resume
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="min-w-[800px] h-[650px] bg-primary-background"></DialogContent>
+    </Dialog>
+  );
+}
+
 export default function Profile() {
   return (
     <div className="flex flex-row space-x-4 text-primary-foreground h-full">
-      <ScrollArea className="h-[calc(100vh-60px)] -translate-y-12 w-[800px]">
+      <ScrollArea className="h-[calc(100vh-60px)] -translate-y-12 shrink basis-[800px]">
         <div className="flex flex-row space-x-4 mb-5 mt-12">
           <ProfileIcon />
           <div className="flex flex-col justify-between">
@@ -42,9 +56,7 @@ export default function Profile() {
               </div>
             </div>
             <div className="flex flex-row space-x-2 text-sm">
-              <Button className="bg-primary-darkest text-primary-background rounded-sm font-normal px-5 py-2 h-[34px]">
-                Upload Resume
-              </Button>
+              <ResumeUpload />
               <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
                 Edit Profile
               </Button>
@@ -111,12 +123,12 @@ export default function Profile() {
           ))}
         </div>
       </ScrollArea>
-      <div className="w-[465px] flex flex-col space-y-2 h-full">
+      <div className="flex flex-col space-y-2 h-full shrink basis-[465px]">
         <div className="bg-primary-background rounded-sm h-[400px] p-4">
-          Notification
+          Notifications
         </div>
         <div className="bg-primary-background rounded-sm h-[224px] p-4">
-          Premium Service
+          Premium Services
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ import bellicon from "@/assets/bellicon.svg";
 import messageicon from "@/assets/messageicon.svg";
 import { ChevronDown } from "lucide-react";
 import { logoutUser } from "@/backend/services/userSvc";
+import PlaceholderProfile from "@/assets/profileplaceholder";
 export default function Navbar() {
   return (
     <div className="fixed top-0 h-[60px] w-full z-10 flex flex-row items-center pl-[52px] pr-[183px] bg-primary-background border-b border-[#D6D6D6] border-opacity-60">
@@ -45,13 +46,7 @@ export default function Navbar() {
         </Link>
         <DropdownMenu>
           <DropdownMenuTrigger className="inline-flex items-center">
-            <Image
-              src={profile}
-              width={40}
-              height={40}
-              alt="profile icon"
-              className="rounded-lg"
-            />
+            <PlaceholderProfile />
             <ChevronDown />
           </DropdownMenuTrigger>
           <DropdownMenuContent>

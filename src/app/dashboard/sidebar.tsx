@@ -18,7 +18,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   return (
     <nav
-      className={`p-[30px] w-[300px] h-[calc(100vh-60px)] bg-primary-background flex flex-col shrink-0 justify-between ${collapsed ? "w-0 min-w-0 px-0" : ""} transition-all`}
+      className={`p-[30px] w-[300px] h-[calc(100vh-60px)] bg-primary-background flex flex-col shrink-0 justify-between ${collapsed ? "max-w-0 px-0" : ""} transition-all`}
     >
       <div className="w-full space-y-8 flex flex-col items-center">
         <Link href="/dashboard" className="w-full">

@@ -14,6 +14,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { Toggle } from "@/components/ui/toggle";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import PlaceholderData from "./assets/data";
 
 const fields = [
   "IT",
@@ -155,9 +163,38 @@ export default async function Dashboard() {
               </div>
             </div>
           </div>
-          <Button className="bg-primary-darkest relative bottom-0 text-primary-background w-[120px] h-[40px] text-sm font-medium rounded-sm">
-            Analyze
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-primary-darkest relative bottom-0 text-primary-background w-[120px] h-[40px] text-sm font-medium rounded-sm">
+                Analyze
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="min-w-[800px] rounded-lg bg-primary-background">
+              <DialogHeader className="text-xl font-normal">
+                Frontend Development
+              </DialogHeader>
+              <p className="text-sm font-normal opacity-60">
+                Relevant Experience
+              </p>
+              <div className="flex flex-row space-x-4">
+                <div className="bg-primary-background-light rounded-lg p-4 grow">
+                  <h1 className="text-2xl font-medium">Fremond Automation</h1>
+                  <p className="text-[12px] font-light">Blair, NE</p>
+                  <p className="text-sm font-light">Freelance web designer</p>
+                </div>
+                <div className="bg-primary-background-light rounded-lg p-4 grow">
+                  <h1 className="text-2xl font-medium">
+                    Echo - Voice to Tab App
+                  </h1>
+                  <p className="text-[12px] font-light">Madison WI</p>
+                  <p className="text-sm font-light">Frontend Developer</p>
+                </div>
+              </div>
+              <div className="w-full bg-primary-background-light rounded-lg">
+                <PlaceholderData />
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="min-w-0 bg-primary-background shrink basis-[465px] h-full max-h-full pt-4 rounded-sm flex flex-col">
           <h1 className="text-xl font-medium text-primary-foreground px-4">
