@@ -12,6 +12,24 @@ import Percent80 from "@/assets/80percent";
 import RightArrow from "@/assets/rightarrow";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ToggleGroup } from "@/components/ui/toggle-group";
+import { Toggle } from "@/components/ui/toggle";
+
+const fields = [
+  "IT",
+  "Education",
+  "Automation",
+  "Engineering",
+  "Media and Entertainment",
+];
+
+const strengths = [
+  "Frontend Development",
+  "Project Management",
+  "Data Analysis",
+];
+
+const skills = ["Figma", "Prototyping", "React", "Python"];
 
 const jobs = [
   {
@@ -46,13 +64,14 @@ const jobs = [
     icon: MetaIcon(),
     href: "https://www.metacareers.com/",
   },
-  // {
-  //   position: "Project Manager",
-  //   company: "Epic",
-  //   location: "Madison, WI",
-  //   date: "2024/08/15",
-  //   icon: EpicIcon(),
-  // },
+  {
+    position: "Project Manager",
+    company: "Epic",
+    location: "Madison, WI",
+    date: "2024/08/15",
+    icon: EpicIcon(),
+    href: "https://www.epic.com/",
+  },
 ];
 
 export default async function Dashboard() {
@@ -77,33 +96,20 @@ export default async function Dashboard() {
                   Key Strengths
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="frontend" />
-                    <label
-                      htmlFor="frontend"
-                      className="text-sm font-light text-primary-foreground"
+                  {strengths.map((strength, idx) => (
+                    <div
+                      key={idx}
+                      className="flex flex-row items-center space-x-2 min-w-[50%]"
                     >
-                      Frontend Development
-                    </label>
-                  </div>
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="management" />
-                    <label
-                      htmlFor="management"
-                      className="text-sm font-light text-primary-foreground"
-                    >
-                      Project Management
-                    </label>
-                  </div>
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="data" />
-                    <label
-                      htmlFor="data"
-                      className="text-sm font-light text-primary-foreground"
-                    >
-                      Data Analysis
-                    </label>
-                  </div>
+                      <Checkbox id={strength} />
+                      <label
+                        htmlFor={strength}
+                        className="text-sm font-light text-primary-foreground"
+                      >
+                        {strength}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="w-full space-y-4">
@@ -111,75 +117,41 @@ export default async function Dashboard() {
                   Skills
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="figma" />
-                    <label
-                      htmlFor="figma"
-                      className="text-sm font-light text-primary-foreground"
+                  {skills.map((skill, idx) => (
+                    <div
+                      key={idx}
+                      className="flex flex-row items-center space-x-2 min-w-[50%]"
                     >
-                      Figma
-                    </label>
-                  </div>
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="prototype" />
-                    <label
-                      htmlFor="prototype"
-                      className="text-sm font-light text-primary-foreground"
-                    >
-                      Prototyping
-                    </label>
-                  </div>
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="react" />
-                    <label
-                      htmlFor="react"
-                      className="text-sm font-light text-primary-foreground"
-                    >
-                      React
-                    </label>
-                  </div>
-                  <div className="flex flex-row items-center space-x-2 min-w-[50%]">
-                    <Checkbox id="python" />
-                    <label
-                      htmlFor="python"
-                      className="text-sm font-light text-primary-foreground"
-                    >
-                      Python
-                    </label>
-                  </div>
+                      <Checkbox id={skill} />
+                      <label
+                        htmlFor={skill}
+                        className="text-sm font-light text-primary-foreground"
+                      >
+                        {skill}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="w-full space-y-4 max-h-full">
                 <h2 className="text-sm font-normal text-opacity-60 text-primary-foreground">
                   Field (optional)
                 </h2>
-                <div className="flex flex-row flex-wrap gap-2">
-                  <div className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center">
-                    <p className="text-sm font-normal text-primary-foreground">
-                      IT
-                    </p>
-                  </div>
-                  <div className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center">
-                    <p className="text-sm font-normal text-primary-foreground">
-                      Education
-                    </p>
-                  </div>
-                  <div className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center">
-                    <p className="text-sm font-normal text-primary-foreground">
-                      Automation
-                    </p>
-                  </div>
-                  <div className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center">
-                    <p className="text-sm font-normal text-primary-foreground">
-                      Engineering
-                    </p>
-                  </div>
-                  <div className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center">
-                    <p className="text-sm font-normal text-primary-foreground">
-                      Media and Entertainment
-                    </p>
-                  </div>
-                </div>
+                <ToggleGroup
+                  type="multiple"
+                  className="flex flex-row flex-wrap justify-start gap-2"
+                >
+                  {fields.map((field, idx) => (
+                    <Toggle
+                      key={idx}
+                      className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center"
+                    >
+                      <p className="text-sm font-normal text-primary-foreground">
+                        {field}
+                      </p>
+                    </Toggle>
+                  ))}
+                </ToggleGroup>
               </div>
             </div>
           </div>
@@ -187,11 +159,11 @@ export default async function Dashboard() {
             Analyze
           </Button>
         </div>
-        <div className="min-w-0 bg-primary-background shrink basis-[465px] h-full max-h-full py-4 rounded-sm flex flex-col">
+        <div className="min-w-0 bg-primary-background shrink basis-[465px] h-full max-h-full pt-4 rounded-sm flex flex-col">
           <h1 className="text-xl font-medium text-primary-foreground px-4">
             Recommended Jobs
           </h1>
-          <ScrollArea className="shrink min-h-0">
+          <ScrollArea className="shrink min-h-0 h-[calc(100vh-268px)]">
             {jobs.map((job, idx) => (
               <Link href={job.href} key={idx}>
                 <div className="flex flex-col text-primary-foreground py-4 border-b space-y-8 hover:bg-primary-background-light px-4 transition-colors">
