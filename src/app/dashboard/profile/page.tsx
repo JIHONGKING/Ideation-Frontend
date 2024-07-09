@@ -32,7 +32,9 @@ function ResumeUpload() {
           Upload Resume
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[800px] h-[650px] bg-primary-background"></DialogContent>
+      <DialogContent className="min-w-[800px] h-[650px] bg-primary-background flex flex-col items-center justify-center">
+        <p>Upload or drag resume here</p>
+      </DialogContent>
     </Dialog>
   );
 }
