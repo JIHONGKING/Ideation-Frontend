@@ -202,11 +202,13 @@ export async function getUserProfile(id: number) {
   return await dbGetUserProfile(id);
 }
 
-export async function updateUserResume(file: File) {
+export async function updateUserResume(formData: FormData) {
   console.info("userSvc - updateUserResume");
-  console.info(file);
-  const data = await fetch(`${process.env.BACKEND_ADDRESS}/resumedata`, {
-    method: "get",
-    body: file,
+  console.info(formData);
+  const response = await fetch(`${process.env.BACKEND_ADDRESS}`, {
+    method: "POST",
+    body: formData,
   });
+  const json = await response.json();
+  console.log(json);
 }

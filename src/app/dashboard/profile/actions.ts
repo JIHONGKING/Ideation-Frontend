@@ -13,5 +13,5 @@ export async function uploadResumeUser(formData: FormData) {
   if (!userId) {
     redirect("/login");
   }
-  await updateUserResume(file);
+  await updateUserResume(formData);
 }

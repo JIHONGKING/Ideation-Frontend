@@ -22,7 +22,7 @@ Along with the default caching behaviors of NextJS, CareerBridge AI will utilize
 
 ### `npm run devstack`
 
-Run the website and the development database concurrently (Requires Docker)
+Run the website, database, and Python microservice concurrently (Requires Docker). **Need a .env.local file in `ai/` directory with `UPSTAGE_API_KEY`.**
 
 ### `npm run dev`
 
@@ -31,6 +31,10 @@ Run just the nextjs app
 ### `npm run db`
 
 Run just the database (Requires Docker)
+
+### `npm run ai`
+
+Run just the Python AI microservice (Requires Docker)
 
 ### `npm run studio`
 
