@@ -1,4 +1,4 @@
-import { getAuthUser } from "@/backend/services/userSvc";
+import { getAuthId, getUserDashboard } from "@/backend/services/userSvc";
 import { Checkbox } from "@/components/ui/checkbox";
 import { redirect } from "next/navigation";
 import NvidiaIcon from "./assets/nvidia";
@@ -17,7 +17,6 @@ import { Toggle } from "@/components/ui/toggle";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -83,10 +82,15 @@ const jobs = [
 ];
 
 export default async function Dashboard() {
-  const user = await getAuthUser();
+  const userid = await getAuthId();
+  if (!userid) {
+    redirect("/login");
+  }
+  const user = await getUserDashboard(userid);
   if (!user) {
     redirect("/login");
   }
+  console.log("user dashbaord data:", user);
   return (
     <div className="space-y-8 h-full max-h-full flex flex-col">
       <h1 className="font-normal text-3xl text-primary-foreground">
@@ -94,7 +98,7 @@ export default async function Dashboard() {
       </h1>
       <div className="flex flex-row grow gap-[15px] h-full">
         <div className="min-w-0 bg-primary-background shrink flex flex-col items-center justify-between basis-[465px] h-full p-4 pb-8 rounded-sm space-y-5">
-          <div>
+          <div className="w-full">
             <h1 className="text-xl font-medium text-primary-foreground">
               Strengths & Skills
             </h1>
@@ -104,17 +108,17 @@ export default async function Dashboard() {
                   Key Strengths
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {strengths.map((strength, idx) => (
+                  {user.strengths.map(({ name }, idx: number) => (
                     <div
                       key={idx}
                       className="flex flex-row items-center space-x-2 min-w-[50%]"
                     >
-                      <Checkbox id={strength} />
+                      <Checkbox id={name} />
                       <label
-                        htmlFor={strength}
+                        htmlFor={name}
                         className="text-sm font-light text-primary-foreground"
                       >
-                        {strength}
+                        {name}
                       </label>
                     </div>
                   ))}
@@ -125,17 +129,17 @@ export default async function Dashboard() {
                   Skills
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {skills.map((skill, idx) => (
+                  {user.skills.map(({ name }, idx) => (
                     <div
                       key={idx}
                       className="flex flex-row items-center space-x-2 min-w-[50%]"
                     >
-                      <Checkbox id={skill} />
+                      <Checkbox id={name} />
                       <label
-                        htmlFor={skill}
+                        htmlFor={name}
                         className="text-sm font-light text-primary-foreground"
                       >
-                        {skill}
+                        {name}
                       </label>
                     </div>
                   ))}
@@ -149,13 +153,13 @@ export default async function Dashboard() {
                   type="multiple"
                   className="flex flex-row flex-wrap justify-start gap-2"
                 >
-                  {fields.map((field, idx) => (
+                  {user.fields.map(({ name }, idx) => (
                     <Toggle
                       key={idx}
                       className="p-2 border border-primary-foreground rounded-sm h-[28px] inline-flex items-center"
                     >
                       <p className="text-sm font-normal text-primary-foreground">
-                        {field}
+                        {name}
                       </p>
                     </Toggle>
                   ))}

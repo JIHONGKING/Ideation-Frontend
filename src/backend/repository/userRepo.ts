@@ -1,6 +1,11 @@
 import { Credentials, User } from "../api/types";
 import { db } from "@/backend/db";
-import { user as user_table } from "../db/schema";
+import {
+  user as user_table,
+  userNotification,
+  userSkill,
+  userStrength,
+} from "../db/schema";
 import { eq } from "drizzle-orm";
 
 export async function dbCreateUser(user: User) {
@@ -39,4 +44,46 @@ export async function dbGetUserById(id: number) {
 export async function dbGetUserFields(username: string, attr: string[]) {
   console.info("userRepo - dbGetUserFields");
   console.info(username, attr);
+}
+export async function dbGetUserDashboard(id: number) {
+  console.info("userRepo - dbGetUserDashboard");
+  console.info(id);
+  return await db.query.user.findFirst({
+    columns: { name: true },
+    with: {
+      skills: { columns: { name: true } },
+      strengths: { columns: { name: true } },
+      fields: { columns: { name: true } },
+    },
+    where: eq(user_table.id, id),
+  });
+}
+
+export async function dbGetUserProfile(id: number) {
+  console.info("userRepo - dbGetUserProfile");
+  console.info(id);
+  return await db.query.user.findFirst({
+    columns: {
+      name: true,
+      title: true,
+      location: true,
+      profilePicUuid: true,
+      about: true,
+    },
+    with: {
+      experiences: {
+        columns: {
+          company: true,
+          position: true,
+          startDate: true,
+          endDate: true,
+          type: true,
+        },
+      },
+      education: {
+        with: { degrees: { columns: { name: true, level: true } } },
+      },
+    },
+    where: eq(user_table.id, id),
+  });
 }

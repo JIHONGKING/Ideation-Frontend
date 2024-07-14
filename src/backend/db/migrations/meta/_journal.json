@@ -15,6 +15,41 @@
       "when": 1720062187640,
       "tag": "0001_lovely_shen",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1720756267209,
+      "tag": "0002_common_hobgoblin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1720758498408,
+      "tag": "0003_tranquil_princess_powerful",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1720898199582,
+      "tag": "0004_lame_odin",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1720900400246,
+      "tag": "0005_aromatic_corsair",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1720904165916,
+      "tag": "0006_careless_shard",
+      "breakpoints": true
     }
   ]
 }

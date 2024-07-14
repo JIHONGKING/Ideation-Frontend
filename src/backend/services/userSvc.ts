@@ -9,6 +9,8 @@ import {
   dbGetUserByEmail,
   dbGetUserFields,
   dbGetUserById,
+  dbGetUserDashboard,
+  dbGetUserProfile,
 } from "../repository/userRepo";
 import { RegisterUserSchema } from "@/backend/api/types";
 import { registerUserSchema } from "@/backend/api/schemas";
@@ -127,8 +129,30 @@ export async function loginUser(credentials: Credentials) {
     return false;
   }
 }
-export async function getAuthUser(): Promise<User | null> {
-  console.info("userSvc - getAuthUser");
+// export async function getAuthUser(): Promise<User | null> {
+//   console.info("userSvc - getAuthUser");
+//   const nextCookies = cookies();
+//   const token = nextCookies.get("token")?.value;
+//   console.info(token);
+//   if (!token) {
+//     return null;
+//   }
+//   const jwt_secret = process.env.JWT_SECRET;
+//   if (!jwt_secret) {
+//     throw new Error("No JWT_SECRET defined");
+//   }
+//   try {
+//     const decoded = jwt.verify(token, jwt_secret);
+//     console.log("decoded:", decoded);
+//     return (await dbGetUserById(decoded.userId))[0];
+//   } catch (e) {
+//     console.info(e);
+//     return null;
+//   }
+// }
+
+export async function getAuthId(): Promise<number | null> {
+  console.info("userSvc - getAuthId");
   const nextCookies = cookies();
   const token = nextCookies.get("token")?.value;
   console.info(token);
@@ -141,8 +165,7 @@ export async function getAuthUser(): Promise<User | null> {
   }
   try {
     const decoded = jwt.verify(token, jwt_secret);
-    console.log("decoded:", decoded);
-    return (await dbGetUserById(decoded.userId))[0];
+    return decoded.userId;
   } catch (e) {
     console.info(e);
     return null;
@@ -167,4 +190,23 @@ export async function logoutEverywhereUser(username: string) {
   } catch (e) {
     console.warn(e);
   }
+}
+
+export async function getUserDashboard(id: number) {
+  console.info("userSvc - getUserDashboard");
+  return await dbGetUserDashboard(id);
+}
+
+export async function getUserProfile(id: number) {
+  console.info("userSvc - getUserProfile");
+  return await dbGetUserProfile(id);
+}
+
+export async function updateUserResume(file: File) {
+  console.info("userSvc - updateUserResume");
+  console.info(file);
+  const data = await fetch(`${process.env.BACKEND_ADDRESS}/resumedata`, {
+    method: "get",
+    body: file,
+  });
 }

@@ -4,8 +4,14 @@ import EmployerLogin from "./employer";
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getAuthId } from "@/backend/services/userSvc";
 
-export default function Login() {
+export default async function Login() {
+  const userId = await getAuthId();
+  if (userId) {
+    redirect("/dashboard");
+  }
   return (
     <Tabs defaultValue="jobseeker">
       <Link href="/" className="absolute top-[18px] left-[160px]">
