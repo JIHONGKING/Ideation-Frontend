@@ -205,10 +205,11 @@ export async function getUserProfile(id: number) {
 export async function updateUserResume(formData: FormData) {
   console.info("userSvc - updateUserResume");
   console.info(formData);
-  const response = await fetch(`${process.env.BACKEND_ADDRESS}`, {
+  const response = await fetch(`${process.env.BACKEND_ADDRESS}/resume/data`, {
     method: "POST",
     body: formData,
   });
   const json = await response.json();
   console.log(json);
+  return json;
 }

@@ -9,12 +9,9 @@ import { uploadResumeUser } from "./actions";
 
 export default function ResumeUpload() {
   function dropHandler(ev) {
-    console.log("File(s) dropped");
-
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
     const files = [...ev.dataTransfer.files];
-    console.log(files);
     setFile(files[0]);
   }
   function allowDrop(ev) {
@@ -26,17 +23,18 @@ export default function ResumeUpload() {
     if (file) {
       formData.append("file", file);
     }
-    setLoading(true);
-    uploadResumeUser(formData).then(() => setLoading(false));
+    setState("loading");
+    uploadResumeUser(formData).then((data) => {
+      setState("done");
+      setExtractedData(data);
+    });
   }
-
-  const [loading, setLoading] = useState(false);
+  const [extractedData, setExtractedData] = useState<{} | null>(null);
+  const [state, setState] = useState("upload");
   const [file, setFile] = useState<File | null>(null);
-  return (
-    <DialogContent className="min-w-[800px] h-[650px] bg-primary-background flex flex-col items-center justify-center text-primary-foreground">
-      {loading ? (
-        <p>Uploading resume and extracting information...</p>
-      ) : (
+  if (state == "upload") {
+    return (
+      <DialogContent className="min-w-[800px] h-[650px] bg-primary-background flex flex-col items-center justify-center text-primary-foreground">
         <div
           className={`w-full h-full flex flex-col items-center justify-center border-4 border-dashed border-primary`}
           onDrop={dropHandler}
@@ -45,7 +43,6 @@ export default function ResumeUpload() {
           <form
             className="flex flex-col items-center space-y-4"
             onSubmit={handleSubmit}
-            enctype="multipart/form-data"
           >
             {file ? (
               <>
@@ -79,7 +76,30 @@ export default function ResumeUpload() {
             />
           </form>
         </div>
-      )}
-    </DialogContent>
-  );
+      </DialogContent>
+    );
+  } else if (state == "loading") {
+    return (
+      <DialogContent className="min-w-[800px] h-[650px] bg-primary-background flex flex-col items-center justify-center text-primary-foreground">
+        <p>Uploading resume and extracting skills, strengths, etc...</p>
+      </DialogContent>
+    );
+  } else {
+    return (
+      <DialogContent className="min-w-[800px] h-[650px] bg-primary-background flex flex-col items-center justify-center text-primary-foreground">
+        <p>Finished submitting!</p>
+        <Button variant="ghost" onClick={() => setState("upload")}>
+          Upload a different file
+        </Button>
+        <p>Extracted information:</p>
+        {extractedData ? (
+          <p>{JSON.stringify(extractedData)}</p>
+        ) : (
+          <p className="text-warning">
+            Uh oh! Data is not found... an error must have occured.
+          </p>
+        )}
+      </DialogContent>
+    );
+  }
 }

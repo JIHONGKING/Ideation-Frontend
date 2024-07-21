@@ -29,7 +29,6 @@ export default async function Profile() {
   if (!user) {
     redirect("/login");
   }
-  console.log(user);
   return (
     <div className="flex flex-row space-x-4 text-primary-foreground h-full">
       <ScrollArea className="h-[calc(100vh-60px)] -translate-y-12 shrink basis-[800px]">
