@@ -19,6 +19,8 @@ import {
   dbDeleteUserExperience,
   dbDeleteUserEducation,
   dbAddUserEducation,
+  dbGetUserAnalysis,
+  dbGetUserNavbar,
 } from "../repository/userRepo";
 import { RegisterUserSchema } from "@/backend/api/types";
 import { registerUserSchema } from "@/backend/api/schemas";
@@ -190,11 +192,11 @@ export async function logoutUser() {
 }
 
 // INFO: Currently not possible with Token based auth
+// TODO: Implement
 export async function logoutEverywhereUser(username: string) {
   console.info("userSvc - logoutEverywhereUser");
   console.info(username);
   try {
-    // TODO: Logout everywhere logic here
   } catch (e) {
     console.warn(e);
   }
@@ -205,9 +207,19 @@ export async function getUserDashboard(id: number) {
   return await dbGetUserDashboard(id);
 }
 
+export async function getUserAnalysis(id: number) {
+  console.info("userSvc - getUserAnalysis");
+  return await dbGetUserAnalysis(id);
+}
+
 export async function getUserProfile(id: number) {
   console.info("userSvc - getUserProfile");
   return await dbGetUserProfile(id);
+}
+
+export async function getUserNavbar(id: number) {
+  console.info("userSvc - getUserProfile");
+  return await dbGetUserNavbar(id);
 }
 
 export async function updateUserResume(formData: FormData) {

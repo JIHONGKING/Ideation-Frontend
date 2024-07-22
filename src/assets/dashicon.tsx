@@ -14,7 +14,7 @@ export default function DashIcon({ className }: { className: string }) {
         width="6.5"
         height="8.5"
         rx="1.25"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <rect
         x="0.75"
@@ -22,7 +22,7 @@ export default function DashIcon({ className }: { className: string }) {
         width="6.5"
         height="4.5"
         rx="1.25"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <rect
         x="10.75"
@@ -30,7 +30,7 @@ export default function DashIcon({ className }: { className: string }) {
         width="6.5"
         height="8.5"
         rx="1.25"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <rect
         x="10.75"
@@ -38,7 +38,7 @@ export default function DashIcon({ className }: { className: string }) {
         width="6.5"
         height="4.5"
         rx="1.25"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
     </svg>
   );

@@ -10,7 +10,7 @@ import {
   userSkill,
   userStrength,
 } from "../db/schema";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export async function dbCreateUser(user: User) {
   console.info("userRepo - dbCreateUser");
@@ -63,6 +63,20 @@ export async function dbGetUserDashboard(id: number) {
   });
 }
 
+export async function dbGetUserAnalysis(id: number) {
+  console.info("userRepo - dbGetUserAnalysis");
+  console.info(id);
+  return await db.query.user.findFirst({
+    columns: { name: true },
+    with: {
+      skills: { columns: { name: true } },
+      strengths: { columns: { name: true } },
+      fields: { columns: { name: true } },
+    },
+    where: eq(user_table.id, id),
+  });
+}
+
 export async function dbGetUserProfile(id: number) {
   console.info("userRepo - dbGetUserProfile");
   console.info(id);
@@ -94,6 +108,19 @@ export async function dbGetUserProfile(id: number) {
       },
     },
     where: eq(user_table.id, id),
+  });
+}
+
+export async function dbGetUserNavbar(id: number) {
+  console.info("userRepo - dbGetUserNavbar");
+  console.info(id);
+  return await db.query.user.findFirst({
+    columns: {
+      profilePicUuid: true,
+    },
+    with: {
+      notifications: true,
+    },
   });
 }
 
