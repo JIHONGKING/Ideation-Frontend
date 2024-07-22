@@ -11,6 +11,14 @@ import {
   dbGetUserById,
   dbGetUserDashboard,
   dbGetUserProfile,
+  dbDeleteUserSkills,
+  dbAddUserSkills,
+  dbDeleteUserFields,
+  dbAddUserFields,
+  dbAddUserExperience,
+  dbDeleteUserExperience,
+  dbDeleteUserEducation,
+  dbAddUserEducation,
 } from "../repository/userRepo";
 import { RegisterUserSchema } from "@/backend/api/types";
 import { registerUserSchema } from "@/backend/api/schemas";
@@ -212,4 +220,21 @@ export async function updateUserResume(formData: FormData) {
   const json = await response.json();
   console.log(json);
   return json;
+}
+
+export async function updateUserSkills(id: number, skills: []) {
+  await dbDeleteUserSkills(id);
+  await dbAddUserSkills(id, skills);
+}
+export async function updateUserFields(id: number, fields: []) {
+  await dbDeleteUserFields(id);
+  await dbAddUserFields(id, fields);
+}
+export async function updateUserExperience(id: number, experience: []) {
+  await dbDeleteUserExperience(id);
+  await dbAddUserExperience(id, experience);
+}
+export async function updateUserEducation(id: number, education: []) {
+  await dbDeleteUserEducation(id);
+  await dbAddUserEducation(id, education);
 }

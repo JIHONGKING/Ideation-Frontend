@@ -29,6 +29,7 @@ export default async function Profile() {
   if (!user) {
     redirect("/login");
   }
+  console.log(user);
   return (
     <div className="flex flex-row space-x-4 text-primary-foreground h-full">
       <ScrollArea className="h-[calc(100vh-60px)] -translate-y-12 shrink basis-[800px]">
@@ -68,11 +69,12 @@ export default async function Profile() {
                 <div>
                   {education.degrees.map((degree, i) => (
                     <p className="text-sm font-light leading-[17px]" key={i}>
-                      {degree.level} - {degree.name}
+                      {degree.level ? `${degree.level} - ` : ""}
+                      {degree.name}
                     </p>
                   ))}
                   <p className="text-sm text-primary-foreground opacity-60 font-light leading-[17px]">
-                    {education.startDate} - {education.endDate}
+                    {education.start_date} - {education.end_date}
                   </p>
                 </div>
               </div>
@@ -97,7 +99,7 @@ export default async function Profile() {
                       {exp.company} · {exp.type}
                     </p>
                     <p className="text-sm text-primary-foreground opacity-60 font-light leading-[17px]">
-                      {exp.startDate} - {exp.endDate}
+                      {exp.start_date} - {exp.end_date}
                     </p>
                   </div>
                 </div>

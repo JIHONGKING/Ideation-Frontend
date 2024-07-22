@@ -33,7 +33,9 @@ export const userRelation = relations(user, ({ many }) => ({
 export const userSkill = pgTable("user_skill", {
   id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
-  userId: integer("user_id").references(() => user.id),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
 });
 
 export const skillRelation = relations(userSkill, ({ one }) => ({
@@ -46,7 +48,9 @@ export const skillRelation = relations(userSkill, ({ one }) => ({
 export const userStrength = pgTable("user_strength", {
   id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
-  userId: integer("user_id").references(() => user.id),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
 });
 
 export const strengthRelation = relations(userStrength, ({ one }) => ({
@@ -59,7 +63,9 @@ export const strengthRelation = relations(userStrength, ({ one }) => ({
 export const userField = pgTable("user_field", {
   id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
-  userId: integer("user_id").references(() => user.id),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
 });
 export const fieldRelation = relations(userField, ({ one }) => ({
   user: one(user, {
@@ -74,7 +80,9 @@ export const userNotification = pgTable("user_notification", {
   content: varchar("content").notNull(),
   href: varchar("href"),
   read: boolean("read").default(false),
-  userId: integer("user_id").references(() => user.id),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
 });
 export const notificationRelation = relations(userNotification, ({ one }) => ({
   user: one(user, {
@@ -87,10 +95,12 @@ export const experience = pgTable("experience", {
   id: serial("id").primaryKey(),
   position: varchar("position"),
   company: varchar("company").notNull(),
-  startDate: varchar("start_date"),
-  endDate: varchar("end_date"),
+  start_date: varchar("start_date"),
+  end_date: varchar("end_date"),
   type: varchar("type"),
-  userId: integer("user_id").references(() => user.id),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
 });
 export const experienceRelation = relations(experience, ({ one }) => ({
   user: one(user, {
@@ -102,9 +112,11 @@ export const experienceRelation = relations(experience, ({ one }) => ({
 export const education = pgTable("education", {
   id: serial("id").primaryKey(),
   school: varchar("school").notNull(),
-  startDate: varchar("start_date"),
-  endDate: varchar("end_date"),
-  userId: integer("user_id").references(() => user.id),
+  start_date: varchar("start_date"),
+  end_date: varchar("end_date"),
+  userId: integer("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
 });
 export const educationRelation = relations(education, ({ one, many }) => ({
   user: one(user, {
@@ -116,9 +128,11 @@ export const educationRelation = relations(education, ({ one, many }) => ({
 
 export const degree = pgTable("degree", {
   id: serial("id").primaryKey(),
-  level: varchar("level").notNull(),
+  level: varchar("level"),
   name: varchar("name").notNull(),
-  educationId: integer("education_id").references(() => education.id),
+  educationId: integer("education_id")
+    .references(() => education.id, { onDelete: "cascade" })
+    .notNull(),
 });
 export const degreeRelation = relations(degree, ({ one }) => ({
   education: one(education, {
@@ -139,7 +153,9 @@ export const job = pgTable("job", {
   id: serial("id").primaryKey(),
   uuid: uuid("uuid").defaultRandom(),
   name: varchar("name").notNull(),
-  employerId: integer("employer_id").references(() => employer.id),
+  employerId: integer("employer_id")
+    .references(() => employer.id)
+    .notNull(),
   description: text("description"),
   location: varchar("location"),
   date: date("date"),
@@ -148,5 +164,7 @@ export const job = pgTable("job", {
 export const jobSkill = pgTable("job_skill", {
   id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
-  jobId: integer("job_id").references(() => job.id),
+  jobId: integer("job_id")
+    .references(() => job.id, { onDelete: "cascade" })
+    .notNull(),
 });

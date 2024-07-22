@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   CartesianGrid,
+  Label,
   Scatter,
   ScatterChart,
   XAxis,
@@ -37,7 +38,7 @@ export default function Analyze({ data }: { data: any[] }) {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-primary-background-light p-2 bg-opacity-60 rounded-sm space-y-2">
+        <div className="bg-primary-background-light p-2 bg-opacity-50 rounded-sm space-y-2">
           <p>
             {parseFloat(payload[0].payload.Experience).toFixed(2)} years of
             experience
@@ -94,13 +95,24 @@ export default function Analyze({ data }: { data: any[] }) {
               type="number"
               name="Experience"
               unit="Year(s)"
-            />
+            >
+              <Label
+                value="Experience (years)"
+                offset={0}
+                position="insideBottom"
+              />
+            </XAxis>
             <YAxis
               dataKey="Acceptance Rate"
               type="number"
               name="Acceptance Rate"
               unit="%"
-            />
+            >
+              {/* <Label value="Relative scores" */}
+              {/*   offset={0} */}
+              {/*   angle={-90} */}
+              {/* /> */}
+            </YAxis>
             <ZAxis
               dataKey="Confidence"
               type="number"
