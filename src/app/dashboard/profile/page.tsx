@@ -64,11 +64,21 @@ export default async function Profile() {
           </div>
         </div>
         <div className="bg-primary-background p-5 space-y-[10px] rounded-sm">
-          <h1 className="text-xl font-normal">About</h1>
+          <div className="inline-flex justify-between w-full">
+            <h1 className="text-xl font-normal">About</h1>
+            <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+              Edit
+            </Button>
+          </div>
           <p className="text-sm font-light leading-[20px]">{user.about}</p>
         </div>
         <div className="bg-primary-background p-5 space-y-[10px] rounded-sm mt-2 pb-[30px]">
-          <h1 className="text-xl font-normal">Education</h1>
+          <div className="inline-flex justify-between w-full">
+            <h1 className="text-xl font-normal">Education</h1>
+            <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+              Edit
+            </Button>
+          </div>
           {user.education.map((education, idx) => (
             <div className="flex flex-row space-x-4" key={idx}>
               <div className="w-[66px] h-[66px] bg-primary-background-light rounded-sm" />
@@ -94,7 +104,12 @@ export default async function Profile() {
           ))}
         </div>
         <div className="bg-primary-background p-5 rounded-sm mt-2">
-          <h1 className="text-xl font-normal mb-[10px]">Experience</h1>
+          <div className="inline-flex justify-between w-full">
+            <h1 className="text-xl font-normal mb-[10px]">Experience</h1>
+            <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+              Edit
+            </Button>
+          </div>
           {user.experiences.map((exp, idx) => (
             <>
               <div
