@@ -1,12 +1,19 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Dialog, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { redirect } from "next/navigation";
 import { getAuthId, getUserProfile } from "@/backend/services/userSvc";
 import ResumeUpload from "./resumeupload";
 import Image from "next/image";
 import defaultProfileIcon from "@/assets/profile.webp";
+import { ReactElement } from "react";
+import EditAbout from "./edit-about";
 
 function ResumeUploadButton() {
   return (
@@ -21,6 +28,29 @@ function ResumeUploadButton() {
     </Dialog>
   );
 }
+
+function EditProfileButton({
+  className,
+  children,
+  content,
+}: {
+  className: string;
+  children: React.ReactNode;
+  content: ReactElement;
+}) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className={className}>{children}</Button>
+      </DialogTrigger>
+      <DialogTitle />
+      <DialogContent className="min-w-[650px] min-h-[400px] px-12">
+        {content}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default async function Profile() {
   const userid = await getAuthId();
   if (!userid) {
@@ -57,27 +87,30 @@ export default async function Profile() {
             </div>
             <div className="flex flex-row space-x-2 text-sm">
               <ResumeUploadButton />
-              <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+              <EditProfileButton className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
                 Edit Profile
-              </Button>
+              </EditProfileButton>
             </div>
           </div>
         </div>
         <div className="bg-primary-background p-5 space-y-[10px] rounded-sm">
           <div className="inline-flex justify-between w-full">
             <h1 className="text-xl font-normal">About</h1>
-            <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+            <EditProfileButton
+              className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]"
+              content={<EditAbout curAbout={user.about} />}
+            >
               Edit
-            </Button>
+            </EditProfileButton>
           </div>
           <p className="text-sm font-light leading-[20px]">{user.about}</p>
         </div>
         <div className="bg-primary-background p-5 space-y-[10px] rounded-sm mt-2 pb-[30px]">
           <div className="inline-flex justify-between w-full">
             <h1 className="text-xl font-normal">Education</h1>
-            <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+            <EditProfileButton className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
               Edit
-            </Button>
+            </EditProfileButton>
           </div>
           {user.education.map((education, idx) => (
             <div className="flex flex-row space-x-4" key={idx}>
@@ -106,9 +139,9 @@ export default async function Profile() {
         <div className="bg-primary-background p-5 rounded-sm mt-2">
           <div className="inline-flex justify-between w-full">
             <h1 className="text-xl font-normal mb-[10px]">Experience</h1>
-            <Button className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+            <EditProfileButton className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
               Edit
-            </Button>
+            </EditProfileButton>
           </div>
           {user.experiences.map((exp, idx) => (
             <>
