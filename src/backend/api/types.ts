@@ -21,7 +21,6 @@ export type User = {
 export type Job = {};
 
 export type Experience = {
-  id: number;
   position: string | null;
   company: string;
   start_date: string | null;

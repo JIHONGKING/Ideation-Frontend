@@ -65,4 +65,14 @@ export const loginSchema = z.object({
   password: z.string(),
 });
 
-export const editExperienceSchema = z.object({});
+export const editExperienceSchema = z.object({
+  experiences: z
+    .object({
+      position: z.string().max(50, { message: "Maximum 50 characters" }),
+      company: z.string().max(50, { message: "Maximum 50 characters" }),
+      start_date: z.string().max(50),
+      end_date: z.string().max(50),
+      type: z.string().max(50),
+    })
+    .array(),
+});
