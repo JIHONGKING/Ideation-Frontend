@@ -16,6 +16,7 @@ import { ReactElement } from "react";
 import EditAbout from "./edit-about";
 import EditProfile from "./edit-profile";
 import EditExperience from "./edit-experience";
+import EditEducation from "./edit-education";
 
 function ResumeUploadButton() {
   return (
@@ -119,7 +120,10 @@ export default async function Profile() {
         <div className="bg-primary-background p-5 space-y-[10px] rounded-sm mt-2 pb-[30px]">
           <div className="inline-flex justify-between w-full">
             <h1 className="text-xl font-normal">Education</h1>
-            <EditProfileButton className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+            <EditProfileButton
+              className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]"
+              content={<EditEducation education={user.education} />}
+            >
               Edit
             </EditProfileButton>
           </div>

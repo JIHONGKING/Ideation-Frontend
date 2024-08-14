@@ -76,3 +76,16 @@ export const editExperienceSchema = z.object({
     })
     .array(),
 });
+
+export const editEducationSchema = z.object({
+  education: z
+    .object({
+      school: z.string().max(100, { message: "Maximum 50 characters" }),
+      start_date: z.string().max(50),
+      end_date: z.string().max(50),
+      degrees: z
+        .object({ level: z.string().max(20), name: z.string().max(50) })
+        .array(),
+    })
+    .array(),
+});
