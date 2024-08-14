@@ -6,6 +6,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
@@ -33,15 +34,20 @@ export default function EditAbout({ curAbout }: { curAbout: string | null }) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
       >
-        <Button type="submit" className="text-white px-5 py-2 min-w-0 w-min">
+        <Button
+          type="submit"
+          className="bg-primary-darkest text-white px-5 py-2 min-w-0 w-min"
+        >
           Save changes
         </Button>
-        <h1 className="text-xl">About</h1>
         <FormField
           control={form.control}
           name="about"
           render={({ field }) => (
             <FormItem>
+              <FormLabel>
+                About section<p className="font-thin">(500 characters max)</p>
+              </FormLabel>
               <FormControl>
                 <Textarea
                   className="w-full min-h-[200px] text-base"

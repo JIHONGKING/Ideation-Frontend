@@ -14,6 +14,7 @@ import Image from "next/image";
 import defaultProfileIcon from "@/assets/profile.webp";
 import { ReactElement } from "react";
 import EditAbout from "./edit-about";
+import EditProfile from "./edit-profile";
 
 function ResumeUploadButton() {
   return (
@@ -87,7 +88,16 @@ export default async function Profile() {
             </div>
             <div className="flex flex-row space-x-2 text-sm">
               <ResumeUploadButton />
-              <EditProfileButton className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]">
+              <EditProfileButton
+                className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]"
+                content={
+                  <EditProfile
+                    name={user.name}
+                    title={user.title}
+                    location={user.location}
+                  />
+                }
+              >
                 Edit Profile
               </EditProfileButton>
             </div>
@@ -100,7 +110,7 @@ export default async function Profile() {
               className="bg-[#E5E5E5] rounded-sm font-normal px-5 py-2 h-[34px]"
               content={<EditAbout curAbout={user.about} />}
             >
-              Edit
+              <p>Edit</p>
             </EditProfileButton>
           </div>
           <p className="text-sm font-light leading-[20px]">{user.about}</p>
