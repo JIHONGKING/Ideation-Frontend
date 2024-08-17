@@ -29,11 +29,13 @@ export default function EditEducation({
           school: edu.school,
           start_date: edu.start_date ? edu.start_date : "",
           end_date: edu.end_date ? edu.end_date : "",
-          degrees: edu.degrees
-            ? edu.degrees.map((deg) => {
-                return { name: deg.name, level: deg.level ? deg.level : "" };
-              })
-            : [{ name: "", level: "" }],
+          degrees:
+            edu.degrees && edu.degrees.length > 0
+              ? {
+                  name: edu.degrees[0].name,
+                  level: edu.degrees[0].level ? edu.degrees[0].level : "",
+                }
+              : { name: "", level: "" },
         };
       }),
     },
@@ -101,6 +103,32 @@ export default function EditEducation({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>End Date</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`education.${idx}.degrees.level`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Degree level</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`education.${idx}.degrees.name`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Degree name</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
