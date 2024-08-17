@@ -1,5 +1,6 @@
 "use server";
 
+import { EditTitleSchema } from "@/backend/api/types";
 import {
   getAuthId,
   updateUserEducation,
@@ -7,6 +8,7 @@ import {
   updateUserFields,
   updateUserResume,
   updateUserSkills,
+  updateUserTitle,
 } from "@/backend/services/userSvc";
 import { redirect } from "next/navigation";
 
@@ -39,4 +41,12 @@ export async function updateProfile(data) {
     updateUserEducation(userId, data.education),
     updateUserFields(userId, data.fields),
   ]);
+}
+
+export async function editProfile(formData: EditTitleSchema) {
+  const userId = await getAuthId();
+  if (!userId) {
+    redirect("/login");
+  }
+  await updateUserTitle(userId, formData);
 }

@@ -1,6 +1,6 @@
 "use server";
 
-import { Credentials, User } from "@/backend/api/types";
+import { Credentials, EditTitleSchema, User } from "@/backend/api/types";
 import {
   dbCreateUser,
   dbDeleteUser,
@@ -21,9 +21,10 @@ import {
   dbAddUserEducation,
   dbGetUserAnalysis,
   dbGetUserNavbar,
+  dbUpdateUserTitle,
 } from "../repository/userRepo";
 import { RegisterUserSchema } from "@/backend/api/types";
-import { registerUserSchema } from "@/backend/api/schemas";
+import { editTitleSchema, registerUserSchema } from "@/backend/api/schemas";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
@@ -249,4 +250,8 @@ export async function updateUserExperience(id: number, experience: []) {
 export async function updateUserEducation(id: number, education: []) {
   await dbDeleteUserEducation(id);
   await dbAddUserEducation(id, education);
+}
+export async function updateUserTitle(id: number, fields: EditTitleSchema) {
+  await editTitleSchema.parseAsync(fields);
+  await dbUpdateUserTitle(id, fields);
 }

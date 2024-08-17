@@ -1,4 +1,4 @@
-import { Credentials, User } from "../api/types";
+import { Credentials, EditTitleSchema, User } from "../api/types";
 import { db } from "@/backend/db";
 import {
   degree,
@@ -184,4 +184,13 @@ export async function dbAddUserEducation(id: number, edu: {}[]) {
     }));
     await tx.insert(degree).values(degreeObjects);
   });
+}
+
+export async function dbUpdateUserTitle(id: number, fields: EditTitleSchema) {
+  console.info("userRepo - dbUpdateUserTitle");
+  console.info(id, fields);
+  await db
+    .update(user_table)
+    .set({ name: fields.name, title: fields.title, location: fields.location })
+    .where(eq(user_table.id, id));
 }

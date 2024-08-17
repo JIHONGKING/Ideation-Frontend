@@ -65,6 +65,15 @@ export const loginSchema = z.object({
   password: z.string(),
 });
 
+export const editTitleSchema = z.object({
+  name: z
+    .string()
+    .max(50, { message: "Maximum length is 50 characters." })
+    .min(2, { message: "Minimum length is 2 characters." }),
+  title: z.string().max(50, { message: "Maximum length is 50 characters." }),
+  location: z.string().max(50, { message: "Maximum length is 50 characters." }),
+});
+
 export const editExperienceSchema = z.object({
   experiences: z
     .object({

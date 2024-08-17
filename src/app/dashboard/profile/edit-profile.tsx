@@ -1,5 +1,7 @@
 "use client";
 
+import { editTitleSchema } from "@/backend/api/schemas";
+import { EditTitleSchema } from "@/backend/api/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,19 +12,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const schema = z.object({
-  name: z
-    .string()
-    .max(50, { message: "Maximum length is 50 characters." })
-    .min(2, { message: "Minimum length is 2 characters." }),
-  title: z.string().max(50, { message: "Maximum length is 50 characters." }),
-  location: z.string().max(50, { message: "Maximum length is 50 characters." }),
-});
+import { editProfile } from "./actions";
 
 export default function EditProfile({
   name,
@@ -33,15 +25,16 @@ export default function EditProfile({
   title: string | null;
   location: string | null;
 }) {
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+  const form = useForm<EditTitleSchema>({
+    resolver: zodResolver(editTitleSchema),
     defaultValues: {
       name: name ? name : "",
       title: title ? title : "",
       location: location ? location : "",
     },
   });
-  function onSubmit(values: z.infer<typeof schema>) {
+  function onSubmit(values: EditTitleSchema) {
+    editProfile(values).then();
     console.log("Submitted", values);
   }
   return (
