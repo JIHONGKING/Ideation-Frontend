@@ -1,5 +1,7 @@
 "use client";
 
+import { editAboutSchema } from "@/backend/api/schemas";
+import { EditAboutSchema } from "@/backend/api/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,20 +14,18 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const schema = z.object({
-  about: z.string().max(800, { message: "Maximum length is 500 characters." }),
-});
+import { editAbout } from "./actions";
 
 export default function EditAbout({ curAbout }: { curAbout: string | null }) {
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+  const form = useForm<EditAboutSchema>({
+    resolver: zodResolver(editAboutSchema),
     defaultValues: {
       about: curAbout ? curAbout : "",
     },
   });
-  function onSubmit(values: z.infer<typeof schema>) {
+  function onSubmit(values: EditAboutSchema) {
+    // NOTE:Add checks in then()
+    editAbout(values).then();
     console.log("Submitted", values);
   }
   return (

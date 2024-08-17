@@ -74,6 +74,10 @@ export const editTitleSchema = z.object({
   location: z.string().max(50, { message: "Maximum length is 50 characters." }),
 });
 
+export const editAboutSchema = z.object({
+  about: z.string().max(800, { message: "Maximum length is 500 characters." }),
+});
+
 export const editExperienceSchema = z.object({
   experiences: z
     .object({

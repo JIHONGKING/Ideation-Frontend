@@ -34,6 +34,7 @@ export default function EditProfile({
     },
   });
   function onSubmit(values: EditTitleSchema) {
+    // NOTE: Add checks in then()
     editProfile(values).then();
     console.log("Submitted", values);
   }

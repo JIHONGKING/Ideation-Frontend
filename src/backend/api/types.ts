@@ -6,6 +6,7 @@ import {
   editExperienceSchema,
   editEducationSchema,
   editTitleSchema,
+  editAboutSchema,
 } from "./schemas";
 
 export type Employer = {
@@ -46,5 +47,6 @@ export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterUserSchema = z.infer<typeof registerUserSchema>;
 export type RegisterEmployerSchema = z.infer<typeof registerEmployerSchema>;
 export type EditTitleSchema = z.infer<typeof editTitleSchema>;
+export type EditAboutSchema = z.infer<typeof editAboutSchema>;
 export type EditExperienceSchema = z.infer<typeof editExperienceSchema>;
 export type EditEducationSchema = z.infer<typeof editEducationSchema>;
