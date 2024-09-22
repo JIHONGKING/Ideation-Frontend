@@ -1,6 +1,11 @@
 "use server";
 
-import { EditAboutSchema, EditTitleSchema } from "@/backend/api/types";
+import {
+  EditAboutSchema,
+  EditEducationSchema,
+  EditExperienceSchema,
+  EditTitleSchema,
+} from "@/backend/api/types";
 import {
   getAuthId,
   updateUserAbout,
@@ -11,6 +16,7 @@ import {
   updateUserSkills,
   updateUserTitle,
 } from "@/backend/services/userSvc";
+import { warn } from "console";
 import { redirect } from "next/navigation";
 
 export async function uploadResumeUser(formData: FormData) {
@@ -42,6 +48,23 @@ export async function updateProfile(data) {
     updateUserEducation(userId, data.education),
     updateUserFields(userId, data.fields),
   ]);
+}
+
+// TODO: FINISH THIS MF
+export async function editEducation(formData: EditEducationSchema) {
+  const userId = await getAuthId();
+  if (!userId) {
+    redirect("/login");
+  }
+  await updateUserEducation(userId, formData);
+}
+
+export async function editExperience(formData: EditExperienceSchema) {
+  const userId = await getAuthId();
+  if (!userId) {
+    redirect("/login");
+  }
+  await updateUserExperience(userId, formData);
 }
 
 export async function editProfile(formData: EditTitleSchema) {

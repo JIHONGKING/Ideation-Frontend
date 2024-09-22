@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
+import { editEducation } from "./actions";
 
 export default function EditEducation({
   education,
@@ -46,6 +47,8 @@ export default function EditEducation({
     remove: removeEdu,
   } = useFieldArray({ name: "education", control: form.control });
   function onSubmit(values: EditEducationSchema) {
+    // NOTE: Add checks to then()
+    editEducation(values).then();
     console.log("Submitted", values);
   }
   return (
