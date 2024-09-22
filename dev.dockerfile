@@ -14,6 +14,6 @@ COPY tailwind.config.ts .
 COPY postcss.config.mjs .
 COPY drizzle.config.ts .
 COPY components.json .
-COPY next-env.d.ts .
+
 
 CMD npm run dev
