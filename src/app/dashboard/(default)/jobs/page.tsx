@@ -7,125 +7,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { jobPostings } from "./data";
+import LocationIcon from "@/assets/locarrow";
+import CompanyIcon from "@/assets/joblocicon";
+import LevelIcon from "@/assets/levelicon";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
-type JobPosting = {
-  job_title: string;
-  company_name: string;
-  location: string;
-  employment_type: "Full-time" | "Part-time" | "Contract" | "Internship";
-  salary_range: {
-    min: number;
-    max: number;
-    currency: string;
-  };
-  job_description: string;
-  responsibilities: string[];
-  qualifications: {
-    education: string;
-    experience: string;
-    skills: string[];
-  };
-  benefits: string[];
-  application_details: {
-    how_to_apply: string;
-    application_deadline: string;
-    contact_email: string;
-  };
-};
-
-type JobPostingsList = JobPosting[];
-
-const jobPostings: JobPostingsList = [
-  {
-    job_title: "Backend Web Developer",
-    company_name: "Tech Solutions Inc.",
-    location: "New York, NY",
-    employment_type: "Full-time",
-    salary_range: {
-      min: 80000,
-      max: 120000,
-      currency: "USD",
-    },
-    job_description:
-      "We are seeking a skilled Backend Web Developer to design, build, and maintain efficient, reusable, and reliable code. You will collaborate with front-end developers, create and optimize APIs, and ensure high performance and responsiveness of our applications.",
-    responsibilities: [
-      "Develop server-side logic using JavaScript, Python, or Ruby",
-      "Optimize applications for maximum speed and scalability",
-      "Work with front-end developers to integrate user-facing elements",
-      "Implement security and data protection",
-      "Design and implement APIs",
-    ],
-    qualifications: {
-      education:
-        "Bachelor's degree in Computer Science or equivalent experience",
-      experience: "3+ years in backend development",
-      skills: [
-        "Strong understanding of JavaScript, Node.js, and Python",
-        "Familiarity with RESTful APIs",
-        "Experience with database systems such as PostgreSQL, MongoDB, or MySQL",
-        "Familiarity with containerization and cloud services like Docker and AWS",
-        "Proficient in version control tools like Git",
-      ],
-    },
-    benefits: [
-      "Health, dental, and vision insurance",
-      "401(k) with company match",
-      "Flexible work schedule",
-      "Remote work options",
-      "Paid time off",
-    ],
-    application_details: {
-      how_to_apply: "Submit your resume and cover letter via our careers page.",
-      application_deadline: "2024-10-15",
-      contact_email: "careers@techsolutions.com",
-    },
-  },
-  {
-    job_title: "Backend Developer",
-    company_name: "Innovatech",
-    location: "San Francisco, CA",
-    employment_type: "Contract",
-    salary_range: {
-      min: 90000,
-      max: 130000,
-      currency: "USD",
-    },
-    job_description:
-      "Innovatech is looking for an experienced Backend Developer to join our project team for a 12-month contract. You will be responsible for building scalable systems and integrating third-party services.",
-    responsibilities: [
-      "Design and maintain backend services",
-      "Work closely with front-end teams and product managers",
-      "Develop APIs and ensure seamless third-party integrations",
-      "Optimize systems for performance and security",
-    ],
-    qualifications: {
-      education: "Bachelor's or Master's degree in Computer Science",
-      experience: "5+ years in backend development",
-      skills: [
-        "Expert in Java, Python, and Node.js",
-        "Experience with cloud infrastructure (AWS, Google Cloud)",
-        "Proficient in SQL and NoSQL databases",
-        "Familiar with CI/CD pipelines",
-        "Strong understanding of software architecture",
-      ],
-    },
-    benefits: [
-      "Competitive contract rate",
-      "Remote work flexibility",
-      "Opportunity for contract extension",
-    ],
-    application_details: {
-      how_to_apply: "Email your resume to jobs@innovatech.com",
-      application_deadline: "2024-11-01",
-      contact_email: "jobs@innovatech.com",
-    },
-  },
-];
 export default function Jobs() {
   return (
     <div className="h-full max-h-full flex flex-row grow gap-6">
       <div className="min-w-[400px] h-full flex flex-col space-y-4">
-        <h1 className="text-xl">Job Search</h1>
         <div className="bg-primary-background w-full h-full p-2 flex flex-col space-y-8">
           <div className="flex flex-row justify-between items-center">
             <div className="inline-flex">
@@ -169,7 +61,31 @@ export default function Jobs() {
             </AccordionItem>
             <AccordionItem value="item6">
               <AccordionTrigger>Sort by</AccordionTrigger>
-              <AccordionContent>test</AccordionContent>
+              <AccordionContent>
+                <RadioGroup>
+                  <div className="flex flex-row items-center space-x-2">
+                    <RadioGroupItem
+                      value="salary"
+                      className="border-primary-foreground"
+                    />
+                    <Label>Salary</Label>
+                  </div>
+                  <div className="flex flex-row items-center space-x-2">
+                    <RadioGroupItem
+                      value="experience"
+                      className="border-primary-foreground"
+                    />
+                    <Label>Experience</Label>
+                  </div>
+                  <div className="flex flex-row items-center space-x-2">
+                    <RadioGroupItem
+                      value="distance"
+                      className="border-primary-foreground"
+                    />
+                    <Label>Distance</Label>
+                  </div>
+                </RadioGroup>
+              </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
@@ -177,16 +93,42 @@ export default function Jobs() {
       <ScrollArea className="w-full h-full">
         {jobPostings.map((post, idx) => (
           <div
-            className="w-full min-h-60 bg-primary-background mb-4 p-4"
+            className="w-full min-h-60 bg-primary-background mb-4 p-4 space-y-4"
             key={idx}
           >
             <h1 className="text-2xl font-medium text-black">
               {post.job_title}
             </h1>
+            <div className="flex flex-row space-x-4">
+              <div className="flex flex-row space-x-2">
+                <CompanyIcon />
+                <p className="text-primary-foreground">{post.company_name}</p>
+              </div>
+              <div className="flex flex-row space-x-2">
+                <LocationIcon />
+                <p className="text-primary-foreground">{post.location}</p>
+              </div>
+              <div className="flex flex-row space-x-2">
+                <LevelIcon />
+                <p className="text-primary-foreground">Senior</p>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <h1 className="font-bold">Responsibilities</h1>
+              <ul className="pl-4">
+                {post.responsibilities.map((res, idx) => (
+                  <li key={idx} className="list-disc">
+                    {res}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button className="w-[236px] h-[44px] border border-primary hover:bg-secondary-background rounded-sm">
+              <p className="text-primary">Learn More</p>
+            </button>
           </div>
         ))}
       </ScrollArea>
     </div>
   );
 }
-
